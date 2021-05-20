@@ -39,6 +39,7 @@ public class ClientProxy implements Runnable
         }
         else
         {
+            //passwort aus Datenbank
             pw = "123";
         }
 
