@@ -27,6 +27,11 @@ public class ClientProxy implements Runnable
         }
     }
 
+    protected String getUsername()
+    {
+        return benutzer.getBenutzername();
+    }
+
     private Boolean anmelden(String benutzername, int passwort)
     {
         String benutzer = "Benutzer";
