@@ -19,7 +19,6 @@ public class Anmeldung implements Runnable
         {
             ServerSocket server = new ServerSocket(5555);
             System.out.println("Server konnte gestartet werden!");
-
             while (true)
             {
                 Socket client = server.accept();

@@ -9,6 +9,7 @@ public class ClientProxy implements Runnable
     PrintWriter writer;
     BufferedReader reader;
     Socket client;
+    Benutzer benutzer;
 
     public ClientProxy(Socket client, Controller c)
     {
@@ -26,13 +27,46 @@ public class ClientProxy implements Runnable
         }
     }
 
+    private Boolean anmelden(String benutzername, int passwort)
+    {
+        String benutzer = "Benutzer";
+        String pw = null;
+
+        if(benutzer == null)
+        {
+            //user nicht in Datenbank gefunden
+            return false;
+        }
+        else
+        {
+            pw = "123";
+        }
+
+        if(benutzer.equals(benutzername) && passwort == pw.hashCode())
+        {
+            this.benutzer = new Benutzer(benutzername);
+            System.out.println("true");
+
+            return true;
+        }
+        return false;
+    }
+
     public void run()
     {
         try
         {
             String s = null;
             while ((s = reader.readLine()) != null)
-                c.MessageAll(s);
+                if(benutzer == null)
+                {
+                    //erst anmelden
+                }
+                else
+                {
+                    c.MessageAll(s);
+                }
+
 
             //writer.close();
             //reader.close();
