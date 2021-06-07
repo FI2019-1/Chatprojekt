@@ -26,6 +26,7 @@ public class Controller implements Initializable
             signIn = new Anmeldung(this);
             Thread t = new Thread(signIn);
             t.start();
+            new Datenbank();
         } catch (Exception e) {
             System.out.println("Server konnte nicht gestartet werden!");
         }

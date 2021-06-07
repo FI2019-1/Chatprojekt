@@ -1,6 +1,6 @@
 package Client;
 
-public class BenutzerAnmeldeDaten
+public class BenutzerAnmeldeDaten extends Nachricht
 {
     private String benutzername;
     private String passwort;
