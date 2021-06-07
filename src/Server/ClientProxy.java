@@ -9,7 +9,9 @@ public class ClientProxy implements Runnable
     PrintWriter writer;
     BufferedReader reader;
     Socket client;
-    Benutzer benutzer;
+    String username;
+    String gruppe;
+    Gruppenraum gruppenraum;
 
     public ClientProxy(Socket client, Controller c)
     {
@@ -22,63 +24,87 @@ public class ClientProxy implements Runnable
             writer = new PrintWriter(out);
             InputStream in = client.getInputStream();
             reader = new BufferedReader(new InputStreamReader(in));
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             System.out.println("Fehler im ClientProxy");
         }
     }
-
-    protected String getUsername()
+    public String getGruppe()
     {
-        return benutzer.getBenutzername();
+        return gruppe;
+    }
+    public String getUsername()
+    {
+        return username;
     }
 
-    private Boolean anmelden(String benutzername, int passwort)
-    {
-        String benutzer = "Benutzer";
-        String pw = null;
-
-        if(benutzer == null)
-        {
-            //user nicht in Datenbank gefunden
-            return false;
-        }
-        else
-        {
-            //passwort aus Datenbank
-            pw = "123";
-        }
-
-        if(benutzer.equals(benutzername) && passwort == pw.hashCode())
-        {
-            this.benutzer = new Benutzer(benutzername);
-            System.out.println("true");
-
-            return true;
-        }
-        return false;
-    }
 
     public void run()
     {
-        try
-        {
+          try
+          {
             String s = null;
+
+
+
             while ((s = reader.readLine()) != null)
-                if(benutzer == null)
+            {
+                if(s.startsWith(";"))
                 {
-                    //erst anmelden
+
+
+                    String username = s.substring(s.indexOf(";") + 1, s.indexOf(";;"));
+                    this.username = username;
+                    String gruppe = s.substring(s.indexOf(";;") + 2);
+                    this.gruppe = gruppe;
+
+
+
+
+                    //c.setzeAnfangsdaten();
+
+                  //  c.verlasseGruppe(this);
+                    c.pruefeGruppe(this);
+
+
+                }
+                else if(s.startsWith(","))
+                {
+                    String username = s.substring(s.indexOf(",") + 1, s.indexOf(";;"));
+                    this.username = username;
+                    String gruppe = s.substring(s.indexOf(";;") + 2);
+                    this.gruppe = gruppe;
+
+
+
+
+                    //c.setzeAnfangsdaten();
+
+                    c.verlasseGruppe(this);
+                 //   c.pruefeGruppe(this);
                 }
                 else
                 {
-                    c.MessageAll(s);
+                    //c.MessageAll(s, gruppe);
+                    gruppenraum.MessageGruppe(s);
                 }
 
-
+            }
             //writer.close();
             //reader.close();
-        } catch (Exception e) {
-            System.out.println("Fehler in ClientProxy Run");
-        }
+          }
+          catch (Exception e)
+          {
+              e.printStackTrace();
+              e.getCause();
+              System.out.println("Fehler in ClientProxy Run");
+          }
+    }
+
+    public void speichereGruppenraum(Gruppenraum gruppenraum)
+    {
+        this.gruppenraum = gruppenraum;
     }
 
     public void schreiben(String s)

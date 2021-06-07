@@ -32,7 +32,11 @@ public class ClientProxy implements Runnable
         {
             String s = null;
             while ((s = reader.readLine()) != null)
+            {
+
                 c.textWindow.appendText(s + "\n");
+            }
+
 
             //writer.close();
             //reader.close();
