@@ -2,6 +2,7 @@ package Server;
 
 import java.io.*;
 import java.net.Socket;
+import java.sql.SQLException;
 
 public class ClientProxy implements Runnable
 {
@@ -15,7 +16,7 @@ public class ClientProxy implements Runnable
     {
         this.c = c;
         this.client = client;
-
+        
         try
         {
             OutputStream out = client.getOutputStream();
@@ -32,30 +33,23 @@ public class ClientProxy implements Runnable
         return benutzer.getBenutzername();
     }
 
-    private Boolean anmelden(String benutzername, int passwort)
-    {
-        String benutzer = "Benutzer";
-        String pw = null;
-
-        if(benutzer == null)
+    private Boolean anmelden(String benutzername, int passwort) {
+        try
         {
-            //user nicht in Datenbank gefunden
+
+            if (c.datenbank.userpasswortAbfragen(benutzername) == passwort)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
             return false;
         }
-        else
-        {
-            //passwort aus Datenbank
-            pw = "123";
-        }
-
-        if(benutzer.equals(benutzername) && passwort == pw.hashCode())
-        {
-            this.benutzer = new Benutzer(benutzername);
-            System.out.println("true");
-
-            return true;
-        }
-        return false;
     }
 
     public void run()
