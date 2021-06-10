@@ -4,6 +4,7 @@
       <root url="file://$PROJECT_DIR$/../../javafx-sdk-11.0.2/lib" />
       <root url="file://$PROJECT_DIR$/../../javafx-sdk-11.0.2/lib" />
       <root url="file://$PROJECT_DIR$/UCanAccess-5.0.1.bin/lib" />
+      <root url="file://$PROJECT_DIR$/UCanAccess-5.0.1.bin" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
@@ -12,6 +13,7 @@
     </SOURCES>
     <jarDirectory url="file://$PROJECT_DIR$/../../javafx-sdk-11.0.2/lib" recursive="false" />
     <jarDirectory url="file://$PROJECT_DIR$/../../javafx-sdk-11.0.2/lib" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/UCanAccess-5.0.1.bin" recursive="false" />
     <jarDirectory url="file://$PROJECT_DIR$/UCanAccess-5.0.1.bin/lib" recursive="false" />
     <jarDirectory url="file://$PROJECT_DIR$/../../javafx-sdk-11.0.2/lib" recursive="false" type="SOURCES" />
     <jarDirectory url="file://$PROJECT_DIR$/../../javafx-sdk-11.0.2/lib" recursive="false" type="SOURCES" />
