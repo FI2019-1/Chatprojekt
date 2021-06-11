@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-
-<GridPane alignment="center" hgap="10" vgap="10" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="Client.ClientController">
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.ClientController">
    <columnConstraints>
       <ColumnConstraints />
    </columnConstraints>
@@ -17,12 +11,15 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <Pane prefHeight="564.0" prefWidth="678.0">
+      <Pane prefHeight="564.0" prefWidth="716.0">
          <children>
-            <TextArea fx:id="textWindow" layoutX="14.0" layoutY="82.0" prefHeight="428.0" prefWidth="646.0" />
-            <TextField fx:id="nachrichten" editable="false" layoutX="14.0" layoutY="525.0" prefHeight="25.0" prefWidth="646.0" />
-            <TextField fx:id="name" layoutX="241.0" layoutY="33.0" />
-            <Label layoutX="176.0" layoutY="37.0" text="Username:" />
+            <TextArea fx:id="textWindow" layoutX="14.0" layoutY="82.0" prefHeight="428.0" prefWidth="679.0" />
+            <TextField fx:id="nachrichten" editable="false" layoutX="14.0" layoutY="525.0" prefHeight="25.0" prefWidth="679.0" />
+            <TextField fx:id="name" layoutX="101.0" layoutY="33.0" />
+            <Label layoutX="24.0" layoutY="37.0" text="Username:" />
+            <Label fx:id="labelGruppenraum" layoutX="271.0" layoutY="37.0" prefHeight="17.0" prefWidth="96.0" text="Gruppenraum:" />
+            <TextField fx:id="textFieldGruppenraum" layoutX="363.0" layoutY="33.0" prefHeight="25.0" prefWidth="149.0" />
+            <Button fx:id="buttonGruppeVerlassen" layoutX="544.0" layoutY="32.0" mnemonicParsing="false" onAction="#gruppeVerlassen" prefHeight="25.0" prefWidth="149.0" text="Gruppenraum wechseln" />
          </children>
       </Pane>
    </children>
