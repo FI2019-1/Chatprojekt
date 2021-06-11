@@ -3,10 +3,10 @@ package Client;
 public class BenutzerAnmeldeDaten extends Nachricht
 {
     private String benutzername;
-    private String passwort;
+    private int passwort;
 
 
-    public BenutzerAnmeldeDaten(String benutzername, String passwort)
+    public BenutzerAnmeldeDaten(String benutzername, int passwort)
     {
         this.passwort = passwort;
         this.benutzername = benutzername;
@@ -16,7 +16,7 @@ public class BenutzerAnmeldeDaten extends Nachricht
         return benutzername;
     }
 
-    public String getPasswort() {
+    public int getPasswort() {
         return passwort;
     }
 }
