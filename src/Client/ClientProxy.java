@@ -33,14 +33,11 @@ public class ClientProxy implements Runnable
             String s = null;
             while ((s = reader.readLine()) != null)
             {
-
                 c.textWindow.appendText(s + "\n");
             }
-
-
-            //writer.close();
-            //reader.close();
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             System.out.println("Fehler in ClientProxy Constructor");
         }
     }

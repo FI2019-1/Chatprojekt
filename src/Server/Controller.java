@@ -1,8 +1,6 @@
 package Server;
 
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -10,9 +8,9 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable
 {
-    ArrayList<ClientProxy> clientList = new ArrayList<ClientProxy>();
     ArrayList<Gruppenraum> gruppenraumList;
     Anmeldung signIn;
+    Gruppenraum defaultgruppenraum;
     Datenbank datenbank;
 
     @Override
@@ -20,7 +18,12 @@ public class Controller implements Initializable
     {
         starteServer();
         gruppenraumList = new ArrayList<>();
-        clientList = new ArrayList<>();
+        defaultgruppenraum = new Gruppenraum("Default");
+        gruppenraumList.add(defaultgruppenraum);
+    }
+    public Gruppenraum getGruppenraum()
+    {
+        return defaultgruppenraum;
     }
 
     public void starteServer()
@@ -30,72 +33,53 @@ public class Controller implements Initializable
             signIn = new Anmeldung(this);
             Thread t = new Thread(signIn);
             t.start();
+            /*
             datenbank = new Datenbank();
             datenbank.connectionStarten();
+             */
         } catch (Exception e) {
             System.err.println("Server konnte nicht gestartet werden! Fehler: " + e.getMessage());
         }
     }
 
-    public void MessageAll(String s, String g)
+    public void addToDefaultGruppe(ClientProxy cp)
     {
-        /*
-        for(ClientProxy cp : clientList)
-        {
-            cp.schreiben(s);
-
-        }
-         */
-
-        for(ClientProxy cp : clientList)
-        {
-            if(cp.getGruppe().equals(g))
-            {
-                cp.schreiben(s);
-            }
-        }
-
+        defaultgruppenraum.getClientList().add(cp);
     }
 
-    public void pruefeGruppe(ClientProxy cp)
+    public void removeFromDefaultGruppe(ClientProxy cp)
+    {
+        defaultgruppenraum.getClientList().remove(cp);
+    }
+
+    public void addeGruppenraum(ClientProxy cp)
     {
         Gruppenraum g2 = null;
         boolean vorhanden = false;
 
-
-
         for(Gruppenraum g : gruppenraumList)
         {
-
-            if(g.getGruppenname().equals(cp.getGruppe()))
+            if(g.getGruppenname().equals(cp.getGruppenraumname()))
             {
                 vorhanden = true;
                 g2 = g;
             }
         }
-
-
         if(vorhanden == false)
         {
-            g2 = new Gruppenraum(cp.getGruppe());
+            g2 = new Gruppenraum(cp.getGruppenraumname());
             gruppenraumList.add(g2);
-
-
-           // System.out.println(gruppe);
         }
+        addeUser(g2, cp);
+    }
+    public void addeUser(Gruppenraum g2, ClientProxy cp)
+    {
         g2.addClient(cp);
         cp.speichereGruppenraum(g2);
-
     }
-    public void verlasseGruppe(ClientProxy cp)
+
+    public void entferneUser(ClientProxy cp)
     {
-        for(Gruppenraum g : gruppenraumList)
-        {
-            if(g.getGruppenname().equals(cp.getGruppe()))
-            {
-                g.entferneClient(cp);
-               // System.out.println(cp.username + "hier");
-            }
-        }
+        cp.getGruppenraum().getClientList().remove(cp);
     }
 }

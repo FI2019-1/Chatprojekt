@@ -1,7 +1,6 @@
 package Server;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class Gruppenraum
@@ -21,17 +20,6 @@ public class Gruppenraum
     }
     public void entferneClient(ClientProxy cp1)
     {
-        /*
-        for(ClientProxy cp2 : clientList)
-        {
-            if(cp1.getUsername().equals(cp2.getUsername()))
-            {
-                clientList.remove(cp2);
-                System.out.println(cp2.username);
-            }
-        }
-        */
-
         List<ClientProxy> toRemove = new ArrayList<ClientProxy>();
         for (ClientProxy cp2 : clientList)
         {
@@ -41,56 +29,23 @@ public class Gruppenraum
             }
         }
         clientList.removeAll(toRemove);
-
-       
-        /*
-        Iterator<ClientProxy> iter = clientList.iterator();
-        System.out.println("Jetzt iterieren");
-        try
-        {
-            while (iter.hasNext())
-            {
-                ClientProxy client = iter.next();
-                System.out.println(iter.next().getUsername());
-
-                if (iter.next().getUsername().equals(cp1.getUsername()))
-                {
-                    iter.
-                    System.out.println("User geht");
-                }
-
-
-            }
-        }
-        catch(Exception e)
-        {
-            e.getCause();
-            e.printStackTrace();
-            System.out.println("Kein Element zum Iterieren");
-          //  clientList.remove(0);
-
-        }
-
-         */
+    }
+    public ArrayList<ClientProxy> getClientList()
+    {
+        return clientList;
     }
 
     public String getGruppenname()
     {
-
         return gruppenname;
     }
 
-    private void MessageAll(String s)
-    {
-        for(ClientProxy cp : clientList)
-        {
-            cp.schreiben(s);
-        }
-    }
     public void MessageGruppe(String s)
     {
+        System.out.println("Hallo2");
         for(ClientProxy cp : clientList)
         {
+            System.out.println(cp.getGruppenraum().getGruppenname() + "Hier");
             cp.schreiben(s);
         }
     }

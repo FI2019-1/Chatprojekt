@@ -1,6 +1,6 @@
 package Server;
 
-import org.hsqldb.rights.User;
+//import org.hsqldb.rights.User;
 
 import java.sql.*;
 

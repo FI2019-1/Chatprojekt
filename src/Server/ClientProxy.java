@@ -2,7 +2,6 @@ package Server;
 
 import java.io.*;
 import java.net.Socket;
-import java.sql.SQLException;
 
 public class ClientProxy implements Runnable
 {
@@ -11,13 +10,17 @@ public class ClientProxy implements Runnable
     BufferedReader reader;
     Socket client;
     Benutzer benutzer;
-    String gruppe;
+    String gruppenraumname;
     Gruppenraum gruppenraum;
 
     public ClientProxy(Socket client, Controller c)
     {
         this.c = c;
         this.client = client;
+        benutzer = new Benutzer();
+
+        gruppenraum = c.defaultgruppenraum;
+        gruppenraumname = c.defaultgruppenraum.getGruppenname();
 
         try
         {
@@ -31,13 +34,32 @@ public class ClientProxy implements Runnable
             System.out.println("Fehler im ClientProxy");
         }
     }
-    public String getGruppe()
+    public String getGruppenraumname()
     {
-        return gruppe;
+        return gruppenraumname;
     }
+    public Gruppenraum getGruppenraum()
+    {
+        return gruppenraum;
+    }
+
     protected String getUsername()
     {
         return benutzer.getBenutzername();
+    }
+    public void setzeUsername(String s)
+    {
+        String username = s.substring(s.indexOf(";") + 1);
+        benutzer.setBenutzername(username);
+        c.addToDefaultGruppe(this);
+    }
+    public void setzeGruppennamen(String s)
+    {
+        String gruppenraumname = s.substring(s.indexOf(",") + 1);
+        c.entferneUser(this);
+        this.gruppenraumname = gruppenraumname;
+
+        c.addeGruppenraum(this);
     }
 
     private Boolean anmelden(String benutzername, int passwort) {
@@ -65,18 +87,20 @@ public class ClientProxy implements Runnable
         {
             String s = null;
             while ((s = reader.readLine()) != null)
+            {
+                /*
                 if(benutzer == null)
                 {
                     //erst anmelden
                 }
                 else
                 {
-                    nachrichtPrüfen(s)
-                }
+                */
 
+                    beginnen(s);
+               //}
 
-            //writer.close();
-            //reader.close();
+            }
         }
         catch (Exception e)
         {
@@ -86,46 +110,28 @@ public class ClientProxy implements Runnable
         }
     }
 
-    private String nachrichtPrüfen(String s)
+    private void beginnen(String s)
     {
         if(s.startsWith(";"))
         {
-
-
-            String username = s.substring(s.indexOf(";") + 1, s.indexOf(";;"));
-            this.username = username;
-            String gruppe = s.substring(s.indexOf(";;") + 2);
-            this.gruppe = gruppe;
-
-            //c.setzeAnfangsdaten();
-
-            //  c.verlasseGruppe(this);
-            c.pruefeGruppe(this);
-
-
+            setzeUsername(s);
         }
-        else if(s.startsWith(","))
+        else if (s.startsWith(","))
         {
-            String username = s.substring(s.indexOf(",") + 1, s.indexOf(";;"));
-            this.username = username;
-            String gruppe = s.substring(s.indexOf(";;") + 2);
-            this.gruppe = gruppe;
-
-            //c.setzeAnfangsdaten();
-
-            c.verlasseGruppe(this);
-            //   c.pruefeGruppe(this);
+            setzeGruppennamen(s);
         }
         else
         {
-            //c.MessageAll(s, gruppe);
             gruppenraum.MessageGruppe(s);
         }
     }
 
+
+
     public void speichereGruppenraum(Gruppenraum gruppenraum)
     {
         this.gruppenraum = gruppenraum;
+        this.gruppenraumname = gruppenraum.getGruppenname();
     }
 
     public void schreiben(String s)

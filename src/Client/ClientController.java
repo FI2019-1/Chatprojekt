@@ -2,7 +2,6 @@ package Client;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -22,19 +21,19 @@ public class ClientController implements Initializable
     TextField textFieldGruppenraum;
     @FXML
     TextArea textWindow;
-    @FXML
-    Button buttonGruppeVerlassen;
+
 
 
     private String username;
     private String gruppenname;
-    ClientProxy cp;
+    private ClientProxy cp;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
         starteClient();
         TextFieldsWithEnter();
+        textFieldGruppenraum.setEditable(false);
     }
 
     private void TextFieldsWithEnter()
@@ -103,39 +102,35 @@ public class ClientController implements Initializable
         cp.schreiben(username + ": " + nachrichten.getText());
         nachrichten.setText("");
     }
-    private void schickeAnfangsdaten()
+
+    public void schickeNamen(String username)
     {
-        cp.schreiben(";" + username+";;"+gruppenname);
+        cp.schreiben(";" + username);
+
+    }
+
+    public void schickeGruppennamen(String gruppenname)
+    {
+        cp.schreiben("," + gruppenname);
     }
 
     public void setName()
     {
         username = name.getText();
-        if(textFieldGruppenraum.isEditable() == false)
-        {
-            schickeAnfangsdaten();
-            nachrichten.setEditable(true);
-        }
+        schickeNamen(username);
+        nachrichten.setEditable(true);
+        textFieldGruppenraum.setText("Default");
         name.setEditable(false);
+        textFieldGruppenraum.setEditable(true);
     }
+
     private void setGruppenraum()
     {
         gruppenname = textFieldGruppenraum.getText();
-        if(name.isEditable() == false)
+        if(username != null)
         {
-            schickeAnfangsdaten();
-            nachrichten.setEditable(true);
+            schickeGruppennamen(gruppenname);
+            textWindow.setText("");
         }
-
-        textFieldGruppenraum.setEditable(false);
-    }
-
-    public void gruppeVerlassen()
-    {
-        textFieldGruppenraum.setEditable(true);
-        nachrichten.setEditable(false);
-        cp.schreiben("," + username+";;"+gruppenname);
-        textFieldGruppenraum.setText("");
-        // System.out.println("Hallo");
     }
 }
