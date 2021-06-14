@@ -13,6 +13,7 @@ public class Controller implements Initializable
     ArrayList<ClientProxy> clientList = new ArrayList<ClientProxy>();
     ArrayList<Gruppenraum> gruppenraumList;
     Anmeldung signIn;
+    Datenbank datenbank;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
@@ -29,8 +30,10 @@ public class Controller implements Initializable
             signIn = new Anmeldung(this);
             Thread t = new Thread(signIn);
             t.start();
+            datenbank = new Datenbank();
+            datenbank.connectionStarten();
         } catch (Exception e) {
-            System.out.println("Server konnte nicht gestartet werden!");
+            System.err.println("Server konnte nicht gestartet werden! Fehler: " + e.getMessage());
         }
     }
 
