@@ -42,11 +42,11 @@ public class ClientProxy implements Runnable
     {
         return gruppenraum;
     }
-
     protected String getUsername()
     {
         return benutzer.getBenutzername();
     }
+
     public void setzeUsername(String s)
     {
         String username = s.substring(s.indexOf(";") + 1);
@@ -56,10 +56,16 @@ public class ClientProxy implements Runnable
     public void setzeGruppennamen(String s)
     {
         String gruppenraumname = s.substring(s.indexOf(",") + 1);
+
         c.entferneUser(this);
         this.gruppenraumname = gruppenraumname;
 
         c.addeGruppenraum(this);
+    }
+    public void pruefePasswort(String s)
+    {
+        String passwort = s.substring(s.indexOf(".") + 1);
+        gruppenraum.pruefePasswort2(this, passwort, gruppenraum.getGruppenname());
     }
 
     private Boolean anmelden(String benutzername, int passwort) {
@@ -120,6 +126,10 @@ public class ClientProxy implements Runnable
         {
             setzeGruppennamen(s);
         }
+        else if (s.startsWith("."))
+        {
+            pruefePasswort(s);
+        }
         else
         {
             gruppenraum.MessageGruppe(s);
@@ -138,5 +148,20 @@ public class ClientProxy implements Runnable
     {
         writer.write(s + "\n");
         writer.flush();
+    }
+
+    public void verwehreZugriffClientseite()
+    {
+        schreiben(";" + gruppenraum.getGruppenname());
+        c.entferneUser(this);
+        gruppenraumname = c.defaultgruppenraum.getGruppenname();
+        gruppenraum = c.defaultgruppenraum;
+        c.addToDefaultGruppe(this);
+
+
+    }
+    public void erlaubeZugriffClientseite()
+    {
+        schreiben("," + gruppenraum.getGruppenname());
     }
 }

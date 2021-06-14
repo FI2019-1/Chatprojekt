@@ -6,6 +6,7 @@ import java.util.List;
 public class Gruppenraum
 {
     private String gruppenname;
+    private String passwort = null;
     private ArrayList<ClientProxy> clientList;
 
     public Gruppenraum(String gruppenname)
@@ -13,23 +14,33 @@ public class Gruppenraum
         clientList = new ArrayList<ClientProxy>();
         this.gruppenname = gruppenname;
     }
+    public void pruefePasswort2(ClientProxy cp, String passwort, String gruppenname)
+    {
+        if(gruppenname.equals("Default") == true)
+        {
+            cp.erlaubeZugriffClientseite();
+        }
+        else if(this.passwort == null)
+        {
+            this.passwort = passwort;
+            cp.erlaubeZugriffClientseite();
+        }
+        else if(this.passwort.equals(passwort) == true)
+        {
+            cp.erlaubeZugriffClientseite();
+        }
+        else
+        {
+            cp.verwehreZugriffClientseite();
+        }
+
+    }
 
     public void addClient(ClientProxy cp)
     {
         clientList.add(cp);
     }
-    public void entferneClient(ClientProxy cp1)
-    {
-        List<ClientProxy> toRemove = new ArrayList<ClientProxy>();
-        for (ClientProxy cp2 : clientList)
-        {
-            if (cp1.getUsername().equals(cp2.getUsername()))
-            {
-                toRemove.add(cp2);
-            }
-        }
-        clientList.removeAll(toRemove);
-    }
+
     public ArrayList<ClientProxy> getClientList()
     {
         return clientList;
@@ -42,10 +53,9 @@ public class Gruppenraum
 
     public void MessageGruppe(String s)
     {
-        System.out.println("Hallo2");
         for(ClientProxy cp : clientList)
         {
-            System.out.println(cp.getGruppenraum().getGruppenname() + "Hier");
+            System.out.println(s);
             cp.schreiben(s);
         }
     }

@@ -74,6 +74,7 @@ public class Controller implements Initializable
     }
     public void addeUser(Gruppenraum g2, ClientProxy cp)
     {
+
         g2.addClient(cp);
         cp.speichereGruppenraum(g2);
     }

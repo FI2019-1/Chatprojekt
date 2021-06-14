@@ -33,7 +33,20 @@ public class ClientProxy implements Runnable
             String s = null;
             while ((s = reader.readLine()) != null)
             {
-                c.textWindow.appendText(s + "\n");
+                System.out.println(s);
+                if(s.startsWith(";"))
+                {
+                    c.verwehreZugriff(s);
+                }
+                else if(s.startsWith(","))
+                {
+                    c.erlaubeZugriff(s);
+                }
+                else
+                {
+                    c.textWindow.appendText(s + "\n");
+                }
+
             }
         }
         catch (Exception e)
@@ -42,7 +55,7 @@ public class ClientProxy implements Runnable
         }
     }
 
-    public  void schreiben(String s)
+    public void schreiben(String s)
     {
         writer.write(s + "\n");
         writer.flush();
