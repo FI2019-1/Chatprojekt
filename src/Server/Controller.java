@@ -81,6 +81,15 @@ public class Controller implements Initializable
 
     public void entferneUser(ClientProxy cp)
     {
-        cp.getGruppenraum().getClientList().remove(cp);
+
+        if(cp.getGruppenraum().getClientList().size() == 1)
+        {
+            gruppenraumList.remove(cp.getGruppenraum());
+        }
+        else
+        {
+            cp.getGruppenraum().getClientList().remove(cp);
+        }
+
     }
 }
