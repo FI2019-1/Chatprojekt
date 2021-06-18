@@ -33,29 +33,19 @@ public class ClientProxy implements Runnable
             String s = null;
             while ((s = reader.readLine()) != null)
             {
-                System.out.println(s);
-                if(s.startsWith(";"))
-                {
-                    c.verwehreZugriff(s);
-                }
-                else if(s.startsWith(","))
-                {
-                    c.erlaubeZugriff(s);
-                }
-                else
-                {
-                    c.textWindow.appendText(s + "\n");
-                }
 
+                c.textWindow.appendText(s + "\n");
             }
-        }
-        catch (Exception e)
-        {
+
+
+            //writer.close();
+            //reader.close();
+        } catch (Exception e) {
             System.out.println("Fehler in ClientProxy Constructor");
         }
     }
 
-    public void schreiben(String s)
+    public  void schreiben(String s)
     {
         writer.write(s + "\n");
         writer.flush();
