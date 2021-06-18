@@ -1,8 +1,10 @@
 package Client;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -23,18 +25,24 @@ public class ClientController implements Initializable
     @FXML
     TextArea textWindow;
     @FXML
-    Button buttonGruppeVerlassen;
+    PasswordField passwordFieldGruppe;
+    @FXML
+    Label labelMessage;
 
 
-    private String username;
-    private String gruppenname;
-    ClientProxy cp;
+
+    private ClientProxy cp;
+    private Gruppenraum gruppenraum;
+    private Benutzer benutzer;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
+        benutzer = new Benutzer();
+        gruppenraum = new Gruppenraum();
         starteClient();
         TextFieldsWithEnter();
+        textFieldGruppenraum.setEditable(false);
     }
 
     private void TextFieldsWithEnter()
@@ -67,6 +75,21 @@ public class ClientController implements Initializable
                 }
             }
         });
+        passwordFieldGruppe.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                event.consume();
+                if(event.isShiftDown())
+                {
+                    passwordFieldGruppe.appendText(System.getProperty("Line.separator"));
+                } else {
+                    if(!passwordFieldGruppe.getText().isEmpty())
+                    {
+                        setGruppenraum();
+                    }
+                }
+            }
+        });
+
 
         name.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
@@ -98,44 +121,96 @@ public class ClientController implements Initializable
         }
     }
 
-    public void  schickeNachricht()
+    public void schickeNachricht()
     {
-        cp.schreiben(username + ": " + nachrichten.getText());
+        cp.schreiben(benutzer.getUsername() + ": " + nachrichten.getText());
         nachrichten.setText("");
     }
-    private void schickeAnfangsdaten()
+
+    public void schickeNamen(String username)
     {
-        cp.schreiben(";" + username+";;"+gruppenname);
+        cp.schreiben(";" + username);
+    }
+
+    public void schickeGruppennamen(String gruppenname)
+    {
+        cp.schreiben("," + gruppenname);
+    }
+
+    public void schickePasswort(String passwort)
+    {
+        cp.schreiben("." + passwort);
+    }
+
+    public void verwehreZugriff(String s)
+    {
+
+        gruppenraum.setGruppenname(s.substring(s.indexOf(";") + 1));
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run()
+            {
+                labelMessage.setText("Falsches Passwort für Gruppe " + gruppenraum.getGruppenname());
+                textFieldGruppenraum.setText("Default");
+            }
+        });
+    }
+    public void erlaubeZugriff(String s)
+    {
+        gruppenraum.setGruppenname(s.substring(s.indexOf(",") + 1));
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run()
+            {
+                labelMessage.setText("Erfolgreich beigetreten in Gruppe " + gruppenraum.getGruppenname());
+            }
+        });
     }
 
     public void setName()
     {
-        username = name.getText();
-        if(textFieldGruppenraum.isEditable() == false)
+        try
         {
-            schickeAnfangsdaten();
-            nachrichten.setEditable(true);
+            benutzer.setUsername(name.getText());
         }
-        name.setEditable(false);
+        catch(Exception e1)
+        {
+            System.out.println("Benutzername konnte nicht einglesen werden.");
+        }
+        if(benutzer.getUsername() != null)
+        {
+            schickeNamen(benutzer.getUsername());
+            nachrichten.setEditable(true);
+            textFieldGruppenraum.setText("Default");
+            name.setEditable(false);
+            textFieldGruppenraum.setEditable(true);
+        }
     }
+
     private void setGruppenraum()
     {
-        gruppenname = textFieldGruppenraum.getText();
-        if(name.isEditable() == false)
+        try
         {
-            schickeAnfangsdaten();
-            nachrichten.setEditable(true);
+            gruppenraum.setGruppenname(textFieldGruppenraum.getText());
+            gruppenraum.setPasswort(passwordFieldGruppe.getText());
+        }
+        catch (Exception e1)
+        {
+            System.out.println("Gruppenname oder Passwort konnte nicht eingelesen werden.");
         }
 
-        textFieldGruppenraum.setEditable(false);
+        if(benutzer.getUsername() != null && gruppenraum.getPasswort() != null && gruppenraum.getGruppenname() != null)
+        {
+            schickeGruppennamen(gruppenraum.getGruppenname());
+            schickePasswort(gruppenraum.getPasswort());
+            textWindow.setText("");
+        }
+        else
+        {
+            System.out.println("Bitte füllen Sie alle notwendigen Textfelder.");
+        }
     }
 
-    public void gruppeVerlassen()
-    {
-        textFieldGruppenraum.setEditable(true);
-        nachrichten.setEditable(false);
-        cp.schreiben("," + username+";;"+gruppenname);
-        textFieldGruppenraum.setText("");
-        // System.out.println("Hallo");
-    }
 }

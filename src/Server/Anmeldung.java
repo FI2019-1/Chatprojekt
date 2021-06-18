@@ -24,11 +24,9 @@ public class Anmeldung implements Runnable
             {
                 Socket client = server.accept();
                 ClientProxy cp = new ClientProxy(client, c);
-
+                System.out.println("Neuer Client erstellt");
                 Thread t = new Thread(cp);
                 t.start();
-
-                c.clientList.add(cp);
             }
         } catch (Exception e) {
             System.out.println("Fehler im Sign In");

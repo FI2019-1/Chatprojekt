@@ -1,9 +1,7 @@
 package Server;
 
-import org.hsqldb.rights.User;
+//import org.hsqldb.rights.User;
 
-import java.io.File;
-import java.net.URL;
 import java.sql.*;
 
 public class Datenbank
@@ -27,9 +25,7 @@ public class Datenbank
 
     protected void connectionStarten() throws SQLException
     {
-        //con = DriverManager.getConnection("jdbc:ucanaccess://C://Schule/JavaFX/Chatprojekt/src/Server/Datenbank.accdb");
-        File f = new File("src/Server/Datenbank.accdb");
-        con = DriverManager.getConnection("jdbc:ucanaccess://" + f.getAbsolutePath());
+        con = DriverManager.getConnection("jdbc:ucanaccess://C://Schule/JavaFX/Chatprojekt/src/Server/Datenbank.accdb");
         stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
     }
 
