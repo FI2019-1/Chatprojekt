@@ -89,13 +89,13 @@ public class Controller implements Initializable
     }
     public void verlasseGruppe(ClientProxy cp)
     {
-        for(Gruppenraum g : gruppenraumList)
+        if(cp.getGruppenraum().getClientList().size() == 1 && cp.getGruppenraum().getGruppenname().equals("Default") == false)
         {
-            if(g.getGruppenname().equals(cp.getGruppe()))
-            {
-                g.entferneClient(cp);
-               // System.out.println(cp.username + "hier");
-            }
+            gruppenraumList.remove(cp.getGruppenraum());
+        }
+        else
+        {
+            cp.getGruppenraum().getClientList().remove(cp);
         }
     }
 }
