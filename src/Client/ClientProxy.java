@@ -5,9 +5,10 @@ import java.net.Socket;
 
 public class ClientProxy implements Runnable
 {
-    PrintWriter writer;
-    BufferedReader reader;
-    Socket client;
+    private PrintWriter writer;
+    private BufferedReader reader;
+    private Socket client;
+
 
     public ClientController getC() {
         return c;

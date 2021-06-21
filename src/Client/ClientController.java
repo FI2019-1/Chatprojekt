@@ -39,16 +39,6 @@ public class ClientController implements Initializable
 
 
     private ClientProxy cp;
-
-    public ClientProxy getCp() {
-        return cp;
-    }
-
-    public void setCp(ClientProxy cp) {
-        this.cp = cp;
-        cp.setC(this);
-    }
-
     private Gruppenraum gruppenraum;
     private Benutzer benutzer;
 
@@ -219,5 +209,14 @@ public class ClientController implements Initializable
             System.out.println("Bitte füllen Sie alle notwendigen Textfelder.");
         }
     }
+    public ClientProxy getCp() {
+        return cp;
+    }
+
+    public void setCp(ClientProxy cp) {
+        this.cp = cp;
+        cp.setC(this);
+    }
+
 
 }

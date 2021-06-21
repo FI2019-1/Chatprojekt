@@ -5,7 +5,7 @@ import java.net.Socket;
 
 public class Anmeldung implements Runnable
 {
-    Controller c;
+    private Controller c;
 
     public Anmeldung(Controller c)
     {
@@ -29,7 +29,7 @@ public class Anmeldung implements Runnable
                 t.start();
             }
         } catch (Exception e) {
-            System.out.println("Fehler im Sign In");
+            System.out.println("Fehler beim annehmen von Clients: " + e.getMessage());
         }
     }
 }

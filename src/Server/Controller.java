@@ -8,10 +8,15 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable
 {
-    ArrayList<Gruppenraum> gruppenraumList;
-    Anmeldung signIn;
+    private ArrayList<Gruppenraum> gruppenraumList;
+    private Anmeldung signIn;
     protected Gruppenraum defaultgruppenraum;
-    Datenbank datenbank;
+
+    public Datenbank getDatenbank() {
+        return datenbank;
+    }
+
+    private Datenbank datenbank;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)

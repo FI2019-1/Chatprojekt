@@ -6,14 +6,14 @@ import java.sql.SQLException;
 
 public class ClientProxy implements Runnable
 {
-    Controller c;
-    PrintWriter writer;
-    BufferedReader reader;
-    Socket client;
-    Benutzer benutzer;
-    String gruppenraumname;
-    Gruppenraum gruppenraum;
-    String username;
+    private Controller c;
+    private PrintWriter writer;
+    private BufferedReader reader;
+    private Socket client;
+    private Benutzer benutzer;
+    private String gruppenraumname;
+    private Gruppenraum gruppenraum;
+    private String username;
 
     public ClientProxy(Socket client, Controller c)
     {
@@ -74,7 +74,7 @@ public class ClientProxy implements Runnable
         try
         {
 
-            if (c.datenbank.userpasswortAbfragen(benutzername) == passwort)
+            if (c.getDatenbank().userpasswortAbfragen(benutzername) == passwort)
             {
                 return true;
             }
