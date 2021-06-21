@@ -10,7 +10,7 @@ public class Controller implements Initializable
 {
     ArrayList<Gruppenraum> gruppenraumList;
     Anmeldung signIn;
-    Gruppenraum defaultgruppenraum;
+    protected Gruppenraum defaultgruppenraum;
     Datenbank datenbank;
 
     @Override

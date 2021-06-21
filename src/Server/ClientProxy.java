@@ -2,6 +2,7 @@ package Server;
 
 import java.io.*;
 import java.net.Socket;
+import java.sql.SQLException;
 
 public class ClientProxy implements Runnable
 {
@@ -12,6 +13,7 @@ public class ClientProxy implements Runnable
     Benutzer benutzer;
     String gruppenraumname;
     Gruppenraum gruppenraum;
+    String username;
 
     public ClientProxy(Socket client, Controller c)
     {
@@ -132,11 +134,10 @@ public class ClientProxy implements Runnable
         }
         else
         {
+            //c.MessageAll(s, gruppe);
             gruppenraum.MessageGruppe(s);
         }
     }
-
-
 
     public void speichereGruppenraum(Gruppenraum gruppenraum)
     {

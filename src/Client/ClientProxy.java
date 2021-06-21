@@ -8,9 +8,18 @@ public class ClientProxy implements Runnable
     PrintWriter writer;
     BufferedReader reader;
     Socket client;
+
+    public ClientController getC() {
+        return c;
+    }
+
+    public void setC(ClientController c) {
+        this.c = c;
+    }
+
     ClientController c;
 
-    public ClientProxy(Socket client, ClientController c)
+    public ClientProxy(Socket client)
     {
         this.c = c;
         this.client = client;

@@ -1,14 +1,22 @@
 package Client;
 
+import Server.Controller;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -30,17 +38,27 @@ public class ClientController implements Initializable
     Label labelMessage;
 
 
-
     private ClientProxy cp;
+
+    public ClientProxy getCp() {
+        return cp;
+    }
+
+    public void setCp(ClientProxy cp) {
+        this.cp = cp;
+        cp.setC(this);
+    }
+
     private Gruppenraum gruppenraum;
     private Benutzer benutzer;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
         benutzer = new Benutzer();
         gruppenraum = new Gruppenraum();
-        starteClient();
+
         TextFieldsWithEnter();
         textFieldGruppenraum.setEditable(false);
     }
@@ -107,19 +125,8 @@ public class ClientController implements Initializable
         });
     }
 
-    public void starteClient()
-    {
-        try
-        {
-            Socket client = new Socket("localhost", 5555);
-            System.out.println("Client konnte gestartet werden :)");
-            cp = new ClientProxy(client, this);
-            Thread t = new Thread(cp);
-            t.start();
-        } catch (Exception e) {
-            System.out.println("Fehler in CC starteClient D:");
-        }
-    }
+
+
 
     public void schickeNachricht()
     {
