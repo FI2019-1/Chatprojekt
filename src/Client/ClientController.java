@@ -40,13 +40,10 @@ public class ClientController implements Initializable
 
     private ClientProxy cp;
     private Gruppenraum gruppenraum;
-    private Benutzer benutzer;
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
-        benutzer = new Benutzer();
         gruppenraum = new Gruppenraum();
 
         TextFieldsWithEnter();
@@ -120,7 +117,7 @@ public class ClientController implements Initializable
 
     public void schickeNachricht()
     {
-        cp.schreiben(benutzer.getUsername() + ": " + nachrichten.getText());
+        cp.schreiben(cp.getBenutzer().getUsername() + ": " + nachrichten.getText());
         nachrichten.setText("");
     }
 
@@ -170,15 +167,15 @@ public class ClientController implements Initializable
     {
         try
         {
-            benutzer.setUsername(name.getText());
+            cp.getBenutzer().setUsername(name.getText());
         }
         catch(Exception e1)
         {
             System.out.println("Benutzername konnte nicht einglesen werden.");
         }
-        if(benutzer.getUsername() != null)
+        if(cp.getBenutzer().getUsername() != null)
         {
-            schickeNamen(benutzer.getUsername());
+            schickeNamen(cp.getBenutzer().getUsername());
             nachrichten.setEditable(true);
             textFieldGruppenraum.setText("Default");
             name.setEditable(false);
@@ -198,7 +195,7 @@ public class ClientController implements Initializable
             System.out.println("Gruppenname oder Passwort konnte nicht eingelesen werden.");
         }
 
-        if(benutzer.getUsername() != null && gruppenraum.getPasswort() != null && gruppenraum.getGruppenname() != null)
+        if(cp.getBenutzer().getUsername() != null && gruppenraum.getPasswort() != null && gruppenraum.getGruppenname() != null)
         {
             schickeGruppennamen(gruppenraum.getGruppenname());
             schickePasswort(gruppenraum.getPasswort());

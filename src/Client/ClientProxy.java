@@ -8,8 +8,11 @@ public class ClientProxy implements Runnable
     private PrintWriter writer;
     private BufferedReader reader;
     private Socket client;
+    private Benutzer benutzer;
 
-
+    public Benutzer getBenutzer() {
+        return benutzer;
+    }
     public ClientController getC() {
         return c;
     }
@@ -24,6 +27,7 @@ public class ClientProxy implements Runnable
     {
         this.c = c;
         this.client = client;
+        this.benutzer = new Benutzer();
 
         try
         {
