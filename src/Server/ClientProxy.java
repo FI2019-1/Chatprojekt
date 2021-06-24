@@ -1,8 +1,12 @@
 package Server;
 
+import Client.BenutzerAnmeldeDaten;
+import Client.Nachricht;
+import Serialize.Serializer;
+
 import java.io.*;
 import java.net.Socket;
-import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class ClientProxy implements Runnable
 {
@@ -13,13 +17,17 @@ public class ClientProxy implements Runnable
     private Benutzer benutzer;
     private String gruppenraumname;
     private Gruppenraum gruppenraum;
+    private Serializer serializer;
     private String username;
+    static ArrayList<Datei> daten = new ArrayList<>();
 
     public ClientProxy(Socket client, Controller c)
     {
+
         this.c = c;
         this.client = client;
         benutzer = new Benutzer();
+        serializer = new Serializer(client);
 
         gruppenraum = c.defaultgruppenraum;
         gruppenraumname = c.defaultgruppenraum.getGruppenname();
@@ -94,7 +102,8 @@ public class ClientProxy implements Runnable
         try
         {
             String s = null;
-            while ((s = reader.readLine()) != null)
+            //while ((s = reader.readLine()) != null)
+            while (true)
             {
                 /*
                 if(benutzer == null)
@@ -105,9 +114,10 @@ public class ClientProxy implements Runnable
                 {
                 */
 
-                    beginnen(s);
-               //}
-
+                //  beginnen(s);
+                //}
+                //empfangen();
+                objektempfangen();
             }
         }
         catch (Exception e)
@@ -115,6 +125,73 @@ public class ClientProxy implements Runnable
             e.printStackTrace();
             e.getCause();
             System.out.println("Fehler in ClientProxy Run");
+        }
+    }
+
+    private void objektempfangen()
+    {
+        try
+        {
+            Nachricht n = serializer.deserialisierung();
+
+            BenutzerAnmeldeDaten anmeldeDaten = (BenutzerAnmeldeDaten)n;
+            System.out.println(anmeldeDaten.getBenutzername());
+
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    public void empfangen()
+    {
+        System.out.println("angekommen");
+        int fileId = 0;
+        try
+        {
+            System.out.println("g");
+            //System.out.println(dis.read());
+            DataInputStream dis = new DataInputStream(client.getInputStream());
+            int fileNameLength = dis.readInt();
+            System.out.println(fileNameLength);
+            System.out.println("h");
+            if(fileNameLength > 0)
+            {
+                System.out.println("4");
+                byte[] fileNameBytes = new byte[fileNameLength];
+                dis.readFully(fileNameBytes, 0, fileNameBytes.length);
+                String fileName = new String(fileNameBytes);
+                int fileContentLength = dis.readInt();
+                if (fileContentLength > 0)
+                {
+                    System.out.println("5");
+                    byte[] fileContentBytes = new byte[fileContentLength];
+                    dis.readFully(fileContentBytes, 0, fileContentBytes.length);
+                    //c.inhalt.setText(fileName);
+
+                    daten.add(new Datei(fileId, fileName, fileContentBytes, getFileExtension(fileName)));
+                    fileId++;
+                    System.out.println("6");
+                }
+            }
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static String getFileExtension(String fileName)
+    {
+        int i = fileName.lastIndexOf('.');
+        if (i > 0)
+        {
+            return fileName.substring(i + 1);
+        } else {
+            return "No extension found.";
         }
     }
 

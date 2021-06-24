@@ -1,5 +1,7 @@
 package Client;
 
+import Serialize.Serializer;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -7,6 +9,9 @@ public class ClientProxy implements Runnable
 {
     private PrintWriter writer;
     private BufferedReader reader;
+    private Serializer serializer;
+
+
     private Socket client;
     private Benutzer benutzer;
 
@@ -28,7 +33,7 @@ public class ClientProxy implements Runnable
         this.c = c;
         this.client = client;
         this.benutzer = new Benutzer();
-
+        serializer = new Serializer(client);
         try
         {
             OutputStream out = client.getOutputStream();
@@ -73,5 +78,9 @@ public class ClientProxy implements Runnable
     {
         writer.write(s + "\n");
         writer.flush();
+    }
+    public void senden(Nachricht n)
+    {
+        serializer.serialisierung(n);
     }
 }

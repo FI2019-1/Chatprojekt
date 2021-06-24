@@ -30,7 +30,7 @@ public class AnmeldeController implements Initializable
         if(textBenutzername.getText() != null && pwTextPasswort.getText() != null)
         {
 
-            //new BenutzerAnmeldeDaten(textBenutzername.getText(), pwTextPasswort.getText().hashCode());
+            cp.senden(new BenutzerAnmeldeDaten(textBenutzername.getText(), pwTextPasswort.getText().hashCode()));
             Stage primaryStage = (Stage) buttonAnmelden.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("client.fxml"));
 

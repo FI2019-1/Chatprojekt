@@ -1,5 +1,6 @@
 package Client;
 
+import Serialize.Serializer;
 import Server.Controller;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -14,8 +15,12 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.URL;
@@ -41,10 +46,14 @@ public class ClientController implements Initializable
     private ClientProxy cp;
     private Gruppenraum gruppenraum;
 
+
+    public File[] file = new File[1];
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
         gruppenraum = new Gruppenraum();
+
 
         TextFieldsWithEnter();
         textFieldGruppenraum.setEditable(false);
@@ -215,5 +224,49 @@ public class ClientController implements Initializable
         cp.setC(this);
     }
 
+    @FXML
+    public void openFilechooser()
+    {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Datei auswählen");
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("All Data", "*.*")
+        );
+
+        file[0] = fileChooser.showOpenDialog(null);
+        System.out.println(file[0]);
+    }
+
+    @FXML
+    public void Nachrichtsenden()
+    {
+        try
+        {
+            FileInputStream fis = new FileInputStream(file[0].getAbsolutePath());
+            Socket socket = new Socket("localhost",5555);
+            DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
+            String fileName = file[0].getName();
+            byte[] fileNameBytes = fileName.getBytes();
+            byte[] fileBytes = new byte[(int)file[0].length()];
+            fis.read(fileBytes);
+            dos.writeInt(fileNameBytes.length);
+            dos.write(fileNameBytes);
+            dos.writeInt(fileBytes.length);
+            dos.write(fileBytes);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        System.out.println(file.length);
+        System.out.println("");
+    }
+
+
+    public void sendenEvent(ActionEvent actionEvent)
+    {
+        //heir an cp senden weitergeben
+    }
 
 }
