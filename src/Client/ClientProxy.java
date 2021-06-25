@@ -1,6 +1,7 @@
 package Client;
 
 import Serialize.Serializer;
+import javafx.application.Platform;
 
 import java.io.*;
 import java.net.Socket;
@@ -31,7 +32,9 @@ public class ClientProxy implements Runnable
 
     public ClientProxy(Socket client, AnmeldeController anmeldeController)
     {
+
         this.anmeldeController = anmeldeController;
+
         this.c = c;
         this.client = client;
         this.benutzer = new Benutzer();
@@ -55,8 +58,8 @@ public class ClientProxy implements Runnable
             //while ((s = reader.readLine()) != null)
             while (true)
             {
-                Nachricht n = serializer.deserialisierung();
-                anmeldeController.bestaetigung((BenutzerAnmeldeDaten) n);
+                empfangen();
+
 
                 /*
                 System.out.println(s);
@@ -77,8 +80,30 @@ public class ClientProxy implements Runnable
         }
         catch (Exception e)
         {
-            System.out.println("Fehler in ClientProxy Constructor" + e.getMessage());
+            System.out.println("Fehler in ClientProxy  run" + e.getMessage());
         }
+    }
+
+    private void empfangen()
+    {
+        try
+        {
+            Nachricht n = serializer.deserialisierung();
+            Platform.runLater(() -> {
+                try {
+                    anmeldeController.bestaetigung((BenutzerAnmeldeDaten) n);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+
+
+        }
+        catch (Exception e)
+        {
+            System.out.println("Fehler beim Nachricht empfangen: " + e.getMessage());
+        }
+
     }
 
     public void schreiben(String s)

@@ -4,6 +4,6 @@ import java.io.Serializable;
 
 public abstract class Nachricht implements Serializable
 {
-    public String test = "test";
+    //public String test = "test";
 
 }
