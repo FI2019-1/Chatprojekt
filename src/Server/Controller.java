@@ -81,7 +81,8 @@ public class Controller implements Initializable
     {
 
         g2.addClient(cp);
-        cp.speichereGruppenraum(g2);
+        // Bitte anpassen:
+        // cp.speichereGruppenraum(g2);
     }
 
     public void entferneUser(ClientProxy cp)

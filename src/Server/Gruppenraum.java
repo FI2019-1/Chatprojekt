@@ -14,6 +14,7 @@ public class Gruppenraum
         clientList = new ArrayList<ClientProxy>();
         this.gruppenname = gruppenname;
     }
+    /* Bitte anpassen
     public void pruefePasswort2(ClientProxy cp, String passwort, String gruppenname)
     {
         if(gruppenname.equals("Default") == true)
@@ -34,7 +35,7 @@ public class Gruppenraum
             cp.verwehreZugriffClientseite();
         }
 
-    }
+    }*/
 
     public void addClient(ClientProxy cp)
     {
@@ -56,7 +57,7 @@ public class Gruppenraum
         for(ClientProxy cp : clientList)
         {
             System.out.println(s);
-            cp.schreiben(s);
+            //cp.schreiben(s);
         }
     }
 }

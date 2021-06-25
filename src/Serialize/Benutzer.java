@@ -6,9 +6,6 @@ public class Benutzer extends Nachricht
 {
     private String benutzername;
 
-    public Benutzer(String benutzername) {
-        super();
-    }
 
     public String getBenutzername()
     {

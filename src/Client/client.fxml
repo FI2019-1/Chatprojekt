@@ -23,7 +23,7 @@
             <Label layoutX="24.0" layoutY="78.0" />
             <Label fx:id="labelMessage" layoutX="22.0" layoutY="78.0" text="-" />
             <PasswordField fx:id="passwordFieldGruppe" layoutX="363.0" layoutY="75.0" />
-            <Button fx:id="senden" layoutX="628.0" layoutY="591.0" mnemonicParsing="false" onAction="#Nachrichtsenden" prefHeight="25.0" prefWidth="87.0" text="DateiSenden" />
+            <Button fx:id="senden" layoutX="628.0" layoutY="591.0" mnemonicParsing="false" onAction="#sendenEvent" prefHeight="25.0" prefWidth="87.0" text="DateiSenden" />
             <Button fx:id="oeffnen" layoutX="561.0" layoutY="591.0" mnemonicParsing="false" onAction="#openFilechooser" text="Öffnen" />
          </children>
       </Pane>

@@ -76,7 +76,8 @@ public class ClientProxy implements Runnable
     public void pruefePasswort(String s)
     {
         String passwort = s.substring(s.indexOf(".") + 1);
-        gruppenraum.pruefePasswort2(this, passwort, gruppenraum.getGruppenname());
+        //Bitte anpassen:
+        // gruppenraum.pruefePasswort2(this, passwort, gruppenraum.getGruppenname());
     }
 
     private void anmelden(BenutzerAnmeldeDaten anmeldeDaten) {

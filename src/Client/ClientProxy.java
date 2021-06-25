@@ -44,7 +44,7 @@ public class ClientProxy implements Runnable
 
         this.c = c;
         this.client = client;
-        this.benutzer = new Benutzer();
+        //this.benutzer = new Benutzer();
         serializer = new Serializer(client);
         try
         {
