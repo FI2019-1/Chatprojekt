@@ -1,6 +1,6 @@
 package Client;
 
-import Server.Benutzer;
+import Serialize.Benutzer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -45,6 +45,7 @@ public class AnmeldeController implements Initializable
             Parent rootSignup = (Parent) loader.load();
             ClientController c = loader.getController();
             c.setCp(cp);
+            c.getCp().setBenutzer(new Benutzer(anmeldeDaten.getBenutzername()));
             primaryStage.setScene(new Scene(rootSignup,  716.0, 564.0));
         }
 

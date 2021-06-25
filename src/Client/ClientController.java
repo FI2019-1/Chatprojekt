@@ -1,6 +1,7 @@
 package Client;
 
 import Serialize.Serializer;
+import Serialize.Text;
 import Server.Controller;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -266,7 +267,7 @@ public class ClientController implements Initializable
 
     public void sendenEvent(ActionEvent actionEvent)
     {
-        //heir an cp senden weitergeben
+        Text t = new Text(nachrichten.getText(), cp.getBenutzer());
     }
 
 }

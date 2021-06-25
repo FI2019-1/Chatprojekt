@@ -8,8 +8,9 @@ public class Text extends Nachricht{
     private Benutzer user;
 
 
-    public Text (String text)
+    public Text (String text, Benutzer user)
     {
+        this.user = user;
         this.text = text;
     }
 

@@ -1,5 +1,6 @@
 package Client;
 
+import Serialize.Benutzer;
 import Serialize.Serializer;
 import javafx.application.Platform;
 
@@ -15,6 +16,11 @@ public class ClientProxy implements Runnable
 
 
     private Socket client;
+
+    public void setBenutzer(Benutzer benutzer) {
+        this.benutzer = benutzer;
+    }
+
     private Benutzer benutzer;
 
     public Benutzer getBenutzer() {
