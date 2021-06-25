@@ -1,5 +1,7 @@
 package Client;
 
+import Serialize.Benutzer;
+
 public class Gruppenraum
 {
     private ClientProxy cp;

@@ -1,7 +1,12 @@
 package Client;
 
-public class BenutzerAnmeldeDaten extends Nachricht
-{
+import Serialize.Nachricht;
+
+import javax.print.attribute.standard.MediaSize;
+import java.io.Serializable;
+import java.lang.reflect.Type;
+
+public class BenutzerAnmeldeDaten extends Nachricht {
     private String benutzername;
     private int passwort;
 
@@ -28,5 +33,10 @@ public class BenutzerAnmeldeDaten extends Nachricht
 
     public int getPasswort() {
         return passwort;
+    }
+
+    @Override
+    public Type getType() {
+        return this.getType();
     }
 }

@@ -126,7 +126,8 @@ public class ClientController implements Initializable
 
     public void schickeNachricht()
     {
-        cp.schreiben(cp.getBenutzer().getUsername() + ": " + nachrichten.getText());
+        //bitte ändern.
+        //cp.schreiben(cp.getBenutzer().getUsername() + ": " + nachrichten.getText());
         nachrichten.setText("");
     }
 
@@ -174,6 +175,7 @@ public class ClientController implements Initializable
 
     public void setName()
     {
+        /* Funktioniert nicht mehr
         try
         {
             cp.getBenutzer().setUsername(name.getText());
@@ -190,10 +192,13 @@ public class ClientController implements Initializable
             name.setEditable(false);
             textFieldGruppenraum.setEditable(true);
         }
+
+         */
     }
 
     private void setGruppenraum()
     {
+        /* Funktioniert nicht mehr
         try
         {
             gruppenraum.setGruppenname(textFieldGruppenraum.getText());
@@ -214,6 +219,7 @@ public class ClientController implements Initializable
         {
             System.out.println("Bitte füllen Sie alle notwendigen Textfelder.");
         }
+        */
     }
     public ClientProxy getCp() {
         return cp;
@@ -238,30 +244,7 @@ public class ClientController implements Initializable
         System.out.println(file[0]);
     }
 
-    @FXML
-    public void Nachrichtsenden()
-    {
-        try
-        {
-            FileInputStream fis = new FileInputStream(file[0].getAbsolutePath());
-            Socket socket = new Socket("localhost",5555);
-            DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
-            String fileName = file[0].getName();
-            byte[] fileNameBytes = fileName.getBytes();
-            byte[] fileBytes = new byte[(int)file[0].length()];
-            fis.read(fileBytes);
-            dos.writeInt(fileNameBytes.length);
-            dos.write(fileNameBytes);
-            dos.writeInt(fileBytes.length);
-            dos.write(fileBytes);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        System.out.println(file.length);
-        System.out.println("");
-    }
+
 
 
     public void sendenEvent(ActionEvent actionEvent)

@@ -1,8 +1,14 @@
 package Serialize;
 
-public class Benutzer
+import java.lang.reflect.Type;
+
+public class Benutzer extends Nachricht
 {
     private String benutzername;
+
+    public Benutzer(String benutzername) {
+        super();
+    }
 
     public String getBenutzername()
     {
@@ -19,4 +25,8 @@ public class Benutzer
 
     }
 
+    @Override
+    public Type getType() {
+        return this.getType();
+    }
 }
