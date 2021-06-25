@@ -6,6 +6,16 @@ public class BenutzerAnmeldeDaten extends Nachricht
     private int passwort;
 
 
+
+    private boolean bestaetigung = false;
+
+    public boolean getBestaetigung() {
+        return bestaetigung;
+    }
+    public void setBestaetigung(boolean bestaetigung) {
+        this.bestaetigung = bestaetigung;
+    }
+
     public BenutzerAnmeldeDaten(String benutzername, int passwort)
     {
         this.passwort = passwort;

@@ -14,9 +14,9 @@ public class Benutzer
         this.benutzername = benutzername;
     }
 
-    public Benutzer()
+    public Benutzer(String benutzername)
     {
-
+        this.benutzername = benutzername;
     }
 
 }

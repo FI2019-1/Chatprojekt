@@ -26,7 +26,6 @@ public class ClientProxy implements Runnable
 
         this.c = c;
         this.client = client;
-        benutzer = new Benutzer();
         serializer = new Serializer(client);
 
         gruppenraum = c.defaultgruppenraum;
@@ -41,7 +40,7 @@ public class ClientProxy implements Runnable
         }
         catch (Exception e)
         {
-            System.out.println("Fehler im ClientProxy");
+            System.out.println("Fehler im ClientProxy" + e.getMessage());
         }
     }
     public String getGruppenraumname()
@@ -78,22 +77,25 @@ public class ClientProxy implements Runnable
         gruppenraum.pruefePasswort2(this, passwort, gruppenraum.getGruppenname());
     }
 
-    private Boolean anmelden(String benutzername, int passwort) {
+    private void anmelden(BenutzerAnmeldeDaten anmeldeDaten) {
         try
         {
 
-            if (c.getDatenbank().userpasswortAbfragen(benutzername) == passwort)
+            if (c.getDatenbank().userpasswortAbfragen(anmeldeDaten.getBenutzername()) == anmeldeDaten.getPasswort())
             {
-                return true;
+                benutzer = new Benutzer(anmeldeDaten.getBenutzername());
+                anmeldeDaten.setBestaetigung(true);
+                serializer.serialisierung(anmeldeDaten);
             }
             else
             {
-                return false;
+                anmeldeDaten.setBestaetigung(false);
+                serializer.serialisierung(anmeldeDaten);
             }
         } catch (Exception e)
         {
             System.out.println(e.getMessage());
-            return false;
+            //return false;
         }
     }
 
@@ -134,8 +136,9 @@ public class ClientProxy implements Runnable
         {
             Nachricht n = serializer.deserialisierung();
 
-            BenutzerAnmeldeDaten anmeldeDaten = (BenutzerAnmeldeDaten)n;
-            System.out.println(anmeldeDaten.getBenutzername());
+            anmelden((BenutzerAnmeldeDaten)n);
+
+            //System.out.println(anmeldeDaten.getBenutzername());
 
         }
         catch(Exception e)

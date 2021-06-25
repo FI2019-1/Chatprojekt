@@ -1,5 +1,6 @@
 package Client;
 
+import Server.Benutzer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -29,8 +30,14 @@ public class AnmeldeController implements Initializable
     public void anmelden(ActionEvent actionEvent) throws IOException {
         if(textBenutzername.getText() != null && pwTextPasswort.getText() != null)
         {
-
+            System.out.println(pwTextPasswort.getText().hashCode());
             cp.senden(new BenutzerAnmeldeDaten(textBenutzername.getText(), pwTextPasswort.getText().hashCode()));
+
+        }
+    }
+    public void bestaetigung(BenutzerAnmeldeDaten anmeldeDaten) throws IOException {
+        if(anmeldeDaten.getBestaetigung() == true)
+        {
             Stage primaryStage = (Stage) buttonAnmelden.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("client.fxml"));
 
@@ -40,6 +47,7 @@ public class AnmeldeController implements Initializable
             c.setCp(cp);
             primaryStage.setScene(new Scene(rootSignup,  716.0, 564.0));
         }
+
     }
     public void starteClient()
     {
@@ -47,7 +55,7 @@ public class AnmeldeController implements Initializable
         {
             Socket client = new Socket("localhost", 5555);
             System.out.println("Client konnte gestartet werden :)");
-            cp = new ClientProxy(client);
+            cp = new ClientProxy(client,this);
             Thread t = new Thread(cp);
             t.start();
         } catch (Exception e) {

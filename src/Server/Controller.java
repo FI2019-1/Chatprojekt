@@ -38,10 +38,10 @@ public class Controller implements Initializable
             signIn = new Anmeldung(this);
             Thread t = new Thread(signIn);
             t.start();
-            /*
+
             datenbank = new Datenbank();
             datenbank.connectionStarten();
-             */
+
         } catch (Exception e) {
             System.err.println("Server konnte nicht gestartet werden! Fehler: " + e.getMessage());
         }

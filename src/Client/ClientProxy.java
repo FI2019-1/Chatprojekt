@@ -10,6 +10,7 @@ public class ClientProxy implements Runnable
     private PrintWriter writer;
     private BufferedReader reader;
     private Serializer serializer;
+    AnmeldeController anmeldeController;
 
 
     private Socket client;
@@ -28,8 +29,9 @@ public class ClientProxy implements Runnable
 
     ClientController c;
 
-    public ClientProxy(Socket client)
+    public ClientProxy(Socket client, AnmeldeController anmeldeController)
     {
+        this.anmeldeController = anmeldeController;
         this.c = c;
         this.client = client;
         this.benutzer = new Benutzer();
@@ -41,7 +43,7 @@ public class ClientProxy implements Runnable
             writer = new PrintWriter(out);
             reader = new BufferedReader(new InputStreamReader(in));
         } catch (Exception e) {
-            System.out.println("Fehler in ClientProxy Constructor");
+            System.out.println("Fehler in ClientProxy Constructor" + e.getMessage());
         }
     }
 
@@ -50,8 +52,13 @@ public class ClientProxy implements Runnable
         try
         {
             String s = null;
-            while ((s = reader.readLine()) != null)
+            //while ((s = reader.readLine()) != null)
+            while (true)
             {
+                Nachricht n = serializer.deserialisierung();
+                anmeldeController.bestaetigung((BenutzerAnmeldeDaten) n);
+
+                /*
                 System.out.println(s);
                 if(s.startsWith(";"))
                 {
@@ -64,13 +71,13 @@ public class ClientProxy implements Runnable
                 else
                 {
                     c.textWindow.appendText(s + "\n");
-                }
+                }*/
 
             }
         }
         catch (Exception e)
         {
-            System.out.println("Fehler in ClientProxy Constructor");
+            System.out.println("Fehler in ClientProxy Constructor" + e.getMessage());
         }
     }
 
