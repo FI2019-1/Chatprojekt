@@ -6,7 +6,7 @@ public class Text extends Nachricht{
 
     private String text;
     private Benutzer user;
-    private String Type = "Text";
+
 
     public Text (String text)
     {
@@ -20,9 +20,9 @@ public class Text extends Nachricht{
     public void setUser(Benutzer user) {
         this.user = user;
     }
-    public void returnNachricht (Nachricht nachricht)
-    {
 
+    public String getText() {
+        return text;
     }
 
     @Override
