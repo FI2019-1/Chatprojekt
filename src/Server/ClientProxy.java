@@ -1,7 +1,8 @@
 package Server;
 
 import Client.BenutzerAnmeldeDaten;
-import Client.Nachricht;
+import Serialize.Benutzer;
+import Serialize.Nachricht;
 import Serialize.Serializer;
 
 import java.io.*;
@@ -51,6 +52,7 @@ public class ClientProxy implements Runnable
     {
         return gruppenraum;
     }
+    /* Funktioniert nicht mehr
     protected String getUsername()
     {
         return benutzer.getBenutzername();
@@ -61,7 +63,7 @@ public class ClientProxy implements Runnable
         String username = s.substring(s.indexOf(";") + 1);
         benutzer.setBenutzername(username);
         c.addToDefaultGruppe(this);
-    }
+    }*/
     public void setzeGruppennamen(String s)
     {
         String gruppenraumname = s.substring(s.indexOf(",") + 1);
@@ -138,6 +140,7 @@ public class ClientProxy implements Runnable
 
             anmelden((BenutzerAnmeldeDaten)n);
 
+            filter(n);
             //System.out.println(anmeldeDaten.getBenutzername());
 
         }
@@ -148,56 +151,11 @@ public class ClientProxy implements Runnable
 
     }
 
-    public void empfangen()
-    {
-        System.out.println("angekommen");
-        int fileId = 0;
-        try
-        {
-            System.out.println("g");
-            //System.out.println(dis.read());
-            DataInputStream dis = new DataInputStream(client.getInputStream());
-            int fileNameLength = dis.readInt();
-            System.out.println(fileNameLength);
-            System.out.println("h");
-            if(fileNameLength > 0)
-            {
-                System.out.println("4");
-                byte[] fileNameBytes = new byte[fileNameLength];
-                dis.readFully(fileNameBytes, 0, fileNameBytes.length);
-                String fileName = new String(fileNameBytes);
-                int fileContentLength = dis.readInt();
-                if (fileContentLength > 0)
-                {
-                    System.out.println("5");
-                    byte[] fileContentBytes = new byte[fileContentLength];
-                    dis.readFully(fileContentBytes, 0, fileContentBytes.length);
-                    //c.inhalt.setText(fileName);
-
-                    daten.add(new Datei(fileId, fileName, fileContentBytes, getFileExtension(fileName)));
-                    fileId++;
-                    System.out.println("6");
-                }
-            }
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+    private void filter(Nachricht n) {
 
     }
 
-    public static String getFileExtension(String fileName)
-    {
-        int i = fileName.lastIndexOf('.');
-        if (i > 0)
-        {
-            return fileName.substring(i + 1);
-        } else {
-            return "No extension found.";
-        }
-    }
-
+/* Irrelevant ---> Umschreiben
     private void beginnen(String s)
     {
         if(s.startsWith(";"))
@@ -218,6 +176,8 @@ public class ClientProxy implements Runnable
             gruppenraum.MessageGruppe(s);
         }
     }
+
+
 
     public void speichereGruppenraum(Gruppenraum gruppenraum)
     {
@@ -245,4 +205,6 @@ public class ClientProxy implements Runnable
     {
         schreiben("," + gruppenraum.getGruppenname());
     }
+    */
+
 }

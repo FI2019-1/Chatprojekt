@@ -1,6 +1,7 @@
 package Client;
 
 import Serialize.Benutzer;
+import Serialize.Nachricht;
 import Serialize.Serializer;
 import javafx.application.Platform;
 
