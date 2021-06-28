@@ -22,8 +22,9 @@ public class Benutzer extends Nachricht
         this.benutzername = benutzername;
     }
 
+
     @Override
     public Type getType() {
-        return this.getType();
+        return this.getClass();
     }
 }

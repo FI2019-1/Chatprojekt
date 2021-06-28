@@ -1,6 +1,7 @@
 package Client;
 
 import Serialize.Benutzer;
+import Serialize.BenutzerAnmeldeDaten;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;

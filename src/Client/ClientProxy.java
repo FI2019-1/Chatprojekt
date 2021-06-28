@@ -1,6 +1,7 @@
 package Client;
 
 import Serialize.Benutzer;
+import Serialize.BenutzerAnmeldeDaten;
 import Serialize.Nachricht;
 import Serialize.Serializer;
 import javafx.application.Platform;
@@ -44,7 +45,7 @@ public class ClientProxy implements Runnable
 
         this.c = c;
         this.client = client;
-        //this.benutzer = new Benutzer();
+        //Nr4this.benutzer = new Benutzer();
         serializer = new Serializer(client);
         try
         {

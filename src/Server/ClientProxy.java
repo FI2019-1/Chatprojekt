@@ -1,9 +1,6 @@
 package Server;
 
-import Client.BenutzerAnmeldeDaten;
-import Serialize.Benutzer;
-import Serialize.Nachricht;
-import Serialize.Serializer;
+import Serialize.*;
 
 import java.io.*;
 import java.net.Socket;
@@ -139,7 +136,7 @@ public class ClientProxy implements Runnable
         {
             Nachricht n = serializer.deserialisierung();
 
-            anmelden((BenutzerAnmeldeDaten)n);
+
 
             filter(n);
             //System.out.println(anmeldeDaten.getBenutzername());
@@ -153,6 +150,20 @@ public class ClientProxy implements Runnable
     }
 
     private void filter(Nachricht n) {
+        if(n.getType() == new Text().getType())
+        {
+            Text t = (Text) n;
+            System.out.println(t.getText());
+        }
+        else if(n.getType() == new BenutzerAnmeldeDaten().getType())
+        {
+            anmelden((BenutzerAnmeldeDaten)n);
+
+        }
+        else
+        {
+            System.out.println(n.getType());
+        }
 
     }
 

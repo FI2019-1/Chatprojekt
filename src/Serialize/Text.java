@@ -13,6 +13,9 @@ public class Text extends Nachricht{
         this.user = user;
         this.text = text;
     }
+    public Text ()
+    {
+    }
 
     public Benutzer getUser() {
         return user;
@@ -28,8 +31,7 @@ public class Text extends Nachricht{
 
     @Override
     public Type getType() {
-        System.out.println(this.getType().toString());
-        return this.getType();
-
+        //System.out.println(this.getType().toString());
+        return this.getClass();
     }
 }

@@ -14,7 +14,7 @@
       <Pane prefHeight="649.0" prefWidth="716.0">
          <children>
             <TextArea fx:id="textWindow" layoutX="14.0" layoutY="124.0" prefHeight="428.0" prefWidth="679.0" />
-            <TextField fx:id="nachrichten" editable="false" layoutX="14.0" layoutY="591.0" onAction="#sendenEvent" prefHeight="25.0" prefWidth="541.0" />
+            <TextField fx:id="nachrichten" layoutX="14.0" layoutY="591.0" onAction="#sendenEvent" prefHeight="25.0" prefWidth="541.0" />
             <TextField fx:id="name" layoutX="101.0" layoutY="33.0" />
             <Label layoutX="24.0" layoutY="37.0" text="Username:" />
             <Label fx:id="labelGruppenraum" layoutX="271.0" layoutY="37.0" prefHeight="17.0" prefWidth="96.0" text="Gruppenraum:" />

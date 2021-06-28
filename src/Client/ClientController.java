@@ -56,8 +56,8 @@ public class ClientController implements Initializable
         gruppenraum = new Gruppenraum();
 
 
-        TextFieldsWithEnter();
-        textFieldGruppenraum.setEditable(false);
+        //TextFieldsWithEnter();
+        //textFieldGruppenraum.setEditable(false);
     }
 
     private void TextFieldsWithEnter()
@@ -251,6 +251,7 @@ public class ClientController implements Initializable
     public void sendenEvent(ActionEvent actionEvent)
     {
         Text t = new Text(nachrichten.getText(), cp.getBenutzer());
+        cp.senden(t);
     }
 
 }
