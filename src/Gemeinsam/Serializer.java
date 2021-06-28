@@ -1,4 +1,4 @@
-package Serialize;
+package Gemeinsam;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

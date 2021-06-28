@@ -1,6 +1,6 @@
 package Client;
 
-import Serialize.Benutzer;
+import Gemeinsam.Benutzer;
 
 public class Gruppenraum
 {

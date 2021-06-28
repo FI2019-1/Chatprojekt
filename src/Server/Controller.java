@@ -1,6 +1,6 @@
 package Server;
 
-import Serialize.Nachricht;
+import Gemeinsam.Nachricht;
 import javafx.fxml.Initializable;
 
 import java.net.URL;

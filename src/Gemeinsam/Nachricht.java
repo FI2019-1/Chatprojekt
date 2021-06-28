@@ -1,4 +1,4 @@
-package Serialize;
+package Gemeinsam;
 
 import java.io.Serializable;
 import java.lang.reflect.Type;

@@ -1,46 +1,18 @@
 package Server;
 
-import Serialize.*;
+import Gemeinsam.*;
 
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class ClientProxy implements Runnable
+public class ClientProxy extends Proxy
 {
     private Controller c;
-    private PrintWriter writer;
-    private BufferedReader reader;
-    private Socket client;
-    private Benutzer benutzer;
     private String gruppenraumname;
     private Gruppenraum gruppenraum;
-    private Serializer serializer;
-    private String username;
     static ArrayList<Datei> daten = new ArrayList<>();
 
-    public ClientProxy(Socket client, Controller c)
-    {
-
-        this.c = c;
-        this.client = client;
-        serializer = new Serializer(client);
-
-        gruppenraum = c.defaultgruppenraum;
-        gruppenraumname = c.defaultgruppenraum.getGruppenname();
-
-        try
-        {
-            OutputStream out = client.getOutputStream();
-            writer = new PrintWriter(out);
-            InputStream in = client.getInputStream();
-            reader = new BufferedReader(new InputStreamReader(in));
-        }
-        catch (Exception e)
-        {
-            System.out.println("Fehler im ClientProxy" + e.getMessage());
-        }
-    }
     public String getGruppenraumname()
     {
         return gruppenraumname;
@@ -49,6 +21,15 @@ public class ClientProxy implements Runnable
     {
         return gruppenraum;
     }
+
+    public ClientProxy(Socket client, Controller c)
+    {
+        super(client);
+        this.c = c;
+        this.gruppenraum = c.defaultgruppenraum;
+        this.gruppenraumname = c.defaultgruppenraum.getGruppenname();
+    }
+
     /* Funktioniert nicht mehr
     protected String getUsername()
     {
@@ -77,20 +58,22 @@ public class ClientProxy implements Runnable
         // gruppenraum.pruefePasswort2(this, passwort, gruppenraum.getGruppenname());
     }
 
-    private void anmelden(BenutzerAnmeldeDaten anmeldeDaten) {
+    public void benutzerdatenverwalten(BenutzerAnmeldeDaten anmeldeDaten) {
         try
         {
 
             if (c.getDatenbank().userpasswortAbfragen(anmeldeDaten.getBenutzername()) == anmeldeDaten.getPasswort())
             {
-                benutzer = new Benutzer(anmeldeDaten.getBenutzername());
+                super.setBenutzer(new Benutzer(anmeldeDaten.getBenutzername()));
                 anmeldeDaten.setBestaetigung(true);
-                serializer.serialisierung(anmeldeDaten);
+                super.senden(anmeldeDaten);
+                //serializer.serialisierung(anmeldeDaten);
             }
             else
             {
                 anmeldeDaten.setBestaetigung(false);
-                serializer.serialisierung(anmeldeDaten);
+                super.senden(anmeldeDaten);
+                //serializer.serialisierung(anmeldeDaten);
             }
         } catch (Exception e)
         {
@@ -99,74 +82,13 @@ public class ClientProxy implements Runnable
         }
     }
 
-    public void run()
+    @Override
+    public void textNachrichtVerwalten(Text t)
     {
-        try
-        {
-            String s = null;
-            //while ((s = reader.readLine()) != null)
-            while (true)
-            {
-                /*
-                if(benutzer == null)
-                {
-                    //erst anmelden
-                }
-                else
-                {
-                */
-
-                //  beginnen(s);
-                //}
-                //empfangen();
-                objektempfangen();
-            }
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            e.getCause();
-            System.out.println("Fehler in ClientProxy Run");
-        }
+        c.sendenAnAlle(t);
     }
 
-    private void objektempfangen()
-    {
-        try
-        {
-            Nachricht n = serializer.deserialisierung();
-            filter(n);
-        }
-        catch(Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
 
-    }
-
-    private void filter(Nachricht n) {
-        if(n.getType() == new Text().getType())
-        {
-            Text t = (Text) n;
-            c.sendenAnAlle(t);
-            //System.out.println(t.getText());
-        }
-        else if(n.getType() == new BenutzerAnmeldeDaten().getType())
-        {
-            anmelden((BenutzerAnmeldeDaten)n);
-
-        }
-        else
-        {
-            System.out.println(n.getType());
-        }
-
-    }
-
-    public void senden(Nachricht n)
-    {
-        serializer.serialisierung(n);
-    }
 
 /* Irrelevant ---> Umschreiben
     private void beginnen(String s)
