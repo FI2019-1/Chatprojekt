@@ -70,7 +70,7 @@ public class ClientController implements Initializable
                 } else {
                     if(!nachrichten.getText().isEmpty())
                     {
-                        schickeNachricht();
+                        //schickeNachricht();
                     }
                 }
             }
@@ -115,7 +115,7 @@ public class ClientController implements Initializable
                 } else {
                     if(!name.getText().isEmpty())
                     {
-                        setName();
+                        //setName();
                     }
                 }
             }
@@ -123,7 +123,7 @@ public class ClientController implements Initializable
     }
 
 
-
+/*
 
     public void schickeNachricht()
     {
@@ -131,6 +131,7 @@ public class ClientController implements Initializable
         //cp.schreiben(cp.getBenutzer().getUsername() + ": " + nachrichten.getText());
         nachrichten.setText("");
     }
+
 
     public void schickeNamen(String username)
     {
@@ -176,7 +177,7 @@ public class ClientController implements Initializable
 
     public void setName()
     {
-        /* Funktioniert nicht mehr
+        // Funktioniert nicht mehr
         try
         {
             cp.getBenutzer().setUsername(name.getText());
@@ -194,9 +195,9 @@ public class ClientController implements Initializable
             textFieldGruppenraum.setEditable(true);
         }
 
-         */
-    }
 
+    }
+*/
     private void setGruppenraum()
     {
         /* Funktioniert nicht mehr
@@ -222,9 +223,11 @@ public class ClientController implements Initializable
         }
         */
     }
+
     public ClientProxy getCp() {
         return cp;
     }
+
 
     public void setCp(ClientProxy cp) {
         this.cp = cp;

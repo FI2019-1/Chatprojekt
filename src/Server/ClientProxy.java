@@ -135,12 +135,7 @@ public class ClientProxy implements Runnable
         try
         {
             Nachricht n = serializer.deserialisierung();
-
-
-
             filter(n);
-            //System.out.println(anmeldeDaten.getBenutzername());
-
         }
         catch(Exception e)
         {
@@ -153,7 +148,8 @@ public class ClientProxy implements Runnable
         if(n.getType() == new Text().getType())
         {
             Text t = (Text) n;
-            System.out.println(t.getText());
+            c.sendenAnAlle(t);
+            //System.out.println(t.getText());
         }
         else if(n.getType() == new BenutzerAnmeldeDaten().getType())
         {
@@ -165,6 +161,11 @@ public class ClientProxy implements Runnable
             System.out.println(n.getType());
         }
 
+    }
+
+    public void senden(Nachricht n)
+    {
+        serializer.serialisierung(n);
     }
 
 /* Irrelevant ---> Umschreiben

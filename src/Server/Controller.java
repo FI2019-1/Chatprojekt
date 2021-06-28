@@ -1,5 +1,6 @@
 package Server;
 
+import Serialize.Nachricht;
 import javafx.fxml.Initializable;
 
 import java.net.URL;
@@ -11,6 +12,7 @@ public class Controller implements Initializable
     private ArrayList<Gruppenraum> gruppenraumList;
     private Anmeldung signIn;
     protected Gruppenraum defaultgruppenraum;
+    private ArrayList<ClientProxy> clientList;
 
     public Datenbank getDatenbank() {
         return datenbank;
@@ -22,6 +24,7 @@ public class Controller implements Initializable
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
         starteServer();
+        clientList = new ArrayList<>();
         gruppenraumList = new ArrayList<>();
         defaultgruppenraum = new Gruppenraum("Default");
         gruppenraumList.add(defaultgruppenraum);
@@ -97,5 +100,16 @@ public class Controller implements Initializable
             cp.getGruppenraum().getClientList().remove(cp);
         }
 
+    }
+    protected void sendenAnAlle(Nachricht n)
+    {
+        for (ClientProxy c :clientList)
+        {
+            c.senden(n);
+        }
+    }
+    protected void addClient(ClientProxy clientProxy)
+    {
+        clientList.add(clientProxy);
     }
 }

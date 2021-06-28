@@ -1,9 +1,6 @@
 package Client;
 
-import Serialize.Benutzer;
-import Serialize.BenutzerAnmeldeDaten;
-import Serialize.Nachricht;
-import Serialize.Serializer;
+import Serialize.*;
 import javafx.application.Platform;
 
 import java.io.*;
@@ -45,7 +42,6 @@ public class ClientProxy implements Runnable
 
         this.c = c;
         this.client = client;
-        //Nr4this.benutzer = new Benutzer();
         serializer = new Serializer(client);
         try
         {
@@ -66,7 +62,7 @@ public class ClientProxy implements Runnable
             //while ((s = reader.readLine()) != null)
             while (true)
             {
-                empfangen();
+                objektempfangen();
 
 
                 /*
@@ -92,11 +88,29 @@ public class ClientProxy implements Runnable
         }
     }
 
-    private void empfangen()
+    private void objektempfangen()
     {
         try
         {
             Nachricht n = serializer.deserialisierung();
+            filter(n);
+            //System.out.println("hallo");
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    private void filter(Nachricht n) {
+        if(n.getType() == new Text().getType())
+        {
+            Text t = (Text) n;
+            System.out.println(t.getText());
+        }
+        else if(n.getType() == new BenutzerAnmeldeDaten().getType())
+        {
             Platform.runLater(() -> {
                 try {
                     anmeldeController.bestaetigung((BenutzerAnmeldeDaten) n);
@@ -104,21 +118,15 @@ public class ClientProxy implements Runnable
                     e.printStackTrace();
                 }
             });
-
-
         }
-        catch (Exception e)
+        else
         {
-            System.out.println("Fehler beim Nachricht empfangen: " + e.getMessage());
+            System.out.println(n.getType());
         }
 
     }
 
-    public void schreiben(String s)
-    {
-        writer.write(s + "\n");
-        writer.flush();
-    }
+
     public void senden(Nachricht n)
     {
         serializer.serialisierung(n);

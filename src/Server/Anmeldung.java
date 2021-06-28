@@ -25,6 +25,7 @@ public class Anmeldung implements Runnable
                 Socket client = server.accept();
                 ClientProxy cp = new ClientProxy(client, c);
                 System.out.println("Neuer Client erstellt");
+                c.addClient(cp);
                 Thread t = new Thread(cp);
                 t.start();
             }
