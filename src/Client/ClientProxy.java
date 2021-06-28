@@ -107,7 +107,8 @@ public class ClientProxy implements Runnable
         if(n.getType() == new Text().getType())
         {
             Text t = (Text) n;
-            System.out.println(t.getText());
+            c.textWindow.appendText(benutzer.getBenutzername() +": " + t.getText() + "\n");
+            //System.out.println(t.getText());
         }
         else if(n.getType() == new BenutzerAnmeldeDaten().getType())
         {
