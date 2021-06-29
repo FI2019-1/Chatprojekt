@@ -1,11 +1,15 @@
 package Server;
 
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import net.ucanaccess.jdbc.DeleteResultSet;
+
+import java.awt.*;
 import java.io.*;
 import java.net.Socket;
 import java.sql.SQLException;
 
-public class ClientProxy implements Runnable
-{
+public class ClientProxy implements Runnable {
     private Controller c;
     private PrintWriter writer;
     private BufferedReader reader;
@@ -14,49 +18,47 @@ public class ClientProxy implements Runnable
     private String gruppenraumname;
     private Gruppenraum gruppenraum;
     private String username;
+    private Datenbank datenbank;
+    private Ratelimiter ratelimiter;
+    private int anzahltimeout;
 
-    public ClientProxy(Socket client, Controller c)
-    {
+    public ClientProxy(Socket client, Controller c) {
         this.c = c;
         this.client = client;
         benutzer = new Benutzer();
+        ratelimiter = new Ratelimiter();
 
         gruppenraum = c.defaultgruppenraum;
         gruppenraumname = c.defaultgruppenraum.getGruppenname();
-
-        try
-        {
+        try {
             OutputStream out = client.getOutputStream();
             writer = new PrintWriter(out);
             InputStream in = client.getInputStream();
             reader = new BufferedReader(new InputStreamReader(in));
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             System.out.println("Fehler im ClientProxy");
         }
     }
-    public String getGruppenraumname()
-    {
+
+    public String getGruppenraumname() {
         return gruppenraumname;
     }
-    public Gruppenraum getGruppenraum()
-    {
+
+    public Gruppenraum getGruppenraum() {
         return gruppenraum;
     }
-    protected String getUsername()
-    {
+
+    protected String getUsername() {
         return benutzer.getBenutzername();
     }
 
-    public void setzeUsername(String s)
-    {
+    public void setzeUsername(String s) {
         String username = s.substring(s.indexOf(";") + 1);
         benutzer.setBenutzername(username);
         c.addToDefaultGruppe(this);
     }
-    public void setzeGruppennamen(String s)
-    {
+
+    public void setzeGruppennamen(String s) {
         String gruppenraumname = s.substring(s.indexOf(",") + 1);
 
         c.entferneUser(this);
@@ -64,95 +66,105 @@ public class ClientProxy implements Runnable
 
         c.addeGruppenraum(this);
     }
-    public void pruefePasswort(String s)
-    {
+
+    public void pruefePasswort(String s) {
         String passwort = s.substring(s.indexOf(".") + 1);
         gruppenraum.pruefePasswort2(this, passwort, gruppenraum.getGruppenname());
     }
 
     private Boolean anmelden(String benutzername, int passwort) {
-        try
-        {
+        try {
 
-            if (c.getDatenbank().userpasswortAbfragen(benutzername) == passwort)
-            {
+            if (c.getDatenbank().userpasswortAbfragen(benutzername) == passwort) {
                 return true;
-            }
-            else
-            {
+            } else {
                 return false;
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
         }
     }
 
+
     public void run()
     {
+
         try
         {
             String s = null;
+
             while ((s = reader.readLine()) != null)
             {
-                /*
-                if(benutzer == null)
+                ratelimiter.berechneRate();
+                if (ratelimiter.getCount() > 0)
                 {
-                    //erst anmelden
+                    if (benutzer == null)
+                    {
+                        //erst anmelden
+                    }
+                    if (benutzer != null)
+                    {
+                        beginnen(s);
+                    }
                 }
                 else
                 {
-                */
-
-                    beginnen(s);
-               //}
+                    if (anzahltimeout < 3)
+                    {
+                        System.out.println("ratelimit überschritten");
+                        anzahltimeout++;
+                        Thread.sleep(10000);
+                    }
+                    else
+                    {
+                        if (benutzer != null)
+                        {
+                            datenbank.bannUser(benutzer.getBenutzername());
+                        }
+                        reader.close();
+                        writer.flush();
+                        writer.close();
+                        client.close();
+                        return;
+                    }
+                }
 
             }
-        }
-        catch (Exception e)
-        {
+
+        } catch (Exception e) {
             e.printStackTrace();
             e.getCause();
             System.out.println("Fehler in ClientProxy Run");
         }
+
     }
 
-    private void beginnen(String s)
-    {
-        if(s.startsWith(";"))
-        {
+
+    private void beginnen(String s) {
+        if (s.startsWith(";")) {
             setzeUsername(s);
-        }
-        else if (s.startsWith(","))
-        {
+        } else if (s.startsWith(",")) {
             setzeGruppennamen(s);
-        }
-        else if (s.startsWith("."))
-        {
+        } else if (s.startsWith(".")) {
             pruefePasswort(s);
-        }
-        else
-        {
+        } else {
             //c.MessageAll(s, gruppe);
             gruppenraum.MessageGruppe(s);
         }
     }
 
-    public void speichereGruppenraum(Gruppenraum gruppenraum)
-    {
+    public void speichereGruppenraum(Gruppenraum gruppenraum) {
         this.gruppenraum = gruppenraum;
         this.gruppenraumname = gruppenraum.getGruppenname();
     }
 
-    public void schreiben(String s)
-    {
+    public void schreiben(String s) {
         writer.write(s + "\n");
         writer.flush();
     }
 
-    public void verwehreZugriffClientseite()
-    {
+    public void verwehreZugriffClientseite() {
         schreiben(";" + gruppenraum.getGruppenname());
         c.entferneUser(this);
         gruppenraumname = c.defaultgruppenraum.getGruppenname();
@@ -161,8 +173,8 @@ public class ClientProxy implements Runnable
 
 
     }
-    public void erlaubeZugriffClientseite()
-    {
+
+    public void erlaubeZugriffClientseite() {
         schreiben("," + gruppenraum.getGruppenname());
     }
 }

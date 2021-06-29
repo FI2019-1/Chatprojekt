@@ -56,4 +56,20 @@ public class Datenbank
         rs.first();
         return rs.getInt("passwort");
     }
+
+    protected void bannUser(String Username) throws SQLException {
+
+        PreparedStatement st;
+        st = con.prepareStatement("UPDATE User set banned = 1 where Username='" + Username + "'");
+        st.executeUpdate();
+    }
+
+    /*protected void unbannUser(String Username) throws SQLException {
+
+        PreparedStatement st;
+        st = con.prepareStatement("UPDATE User set banned = 0 where Username='" + Username + "'");
+        st.executeUpdate();
+    }*/
+
+
 }

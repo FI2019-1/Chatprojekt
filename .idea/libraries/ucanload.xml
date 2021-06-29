@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="ucanload">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/UCanAccess-5.0.1.bin/loader/ucanload.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
