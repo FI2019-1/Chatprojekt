@@ -19,12 +19,19 @@ public abstract class Proxy implements Runnable
         return benutzer;
     }
 
+    public Socket getClient() {
+        return client;
+    }
+
+    protected Serializer getSerialiser() { return serializer;}
+
     public Proxy(Socket client)
     {
         this.client = client;
         this.serializer = new Serializer(client);
 
     }
+
     public void run()
     {
         try
@@ -40,7 +47,7 @@ public abstract class Proxy implements Runnable
         }
     }
 
-    private void objektempfangen()
+    protected void objektempfangen()
     {
         try
         {

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="b227baea-bc7b-4868-a8e2-5f5fd2e268f4" name="Default Changelist" comment="modified gitignor">
+      <change beforePath="$PROJECT_DIR$/src/Client/AnmeldeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Client/AnmeldeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gemeinsam/Proxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gemeinsam/Proxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/ClientProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/ClientProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/Datenbank.accdb" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Datenbank.accdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/Datenbank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Datenbank.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="DDoS" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1uJ1pG0nSbgZHkR1iMzaAJIx8uY" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="jdk.selected.JAVA_MODULE" value="16" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/UCanAccess-5.0.1.bin/ucanaccess-5.0.1.jar" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.11750883" />
+    <property name="project.structure.side.proportion" value="0.13333333" />
+  </component>
+  <component name="RunManager" selected="Application.Datenbank">
+    <configuration name="ClientMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Client.ClientMain" />
+      <module name="Chatprojekt" />
+      <option name="VM_PARAMETERS" value="--module-path &quot;C:\Program Files\javafx-sdk-16\lib&quot; --add-modules javafx.controls,javafx.fxml" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Client.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DDoS_Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Test.DDoS_Test" />
+      <module name="Chatprojekt" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Datenbank" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Server.Datenbank" />
+      <module name="Chatprojekt" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Starte Server Chatprojekt " type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="Server.ServerMain" />
+      <module name="Chatprojekt" />
+      <option name="VM_PARAMETERS" value="--module-path &quot;C:\Program Files\javafx-sdk-16\lib&quot; --add-modules javafx.controls,javafx.fxml" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Server.Test" />
+      <module name="Chatprojekt" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.Starte Server Chatprojekt " />
+      <item itemvalue="Application.ClientMain" />
+      <item itemvalue="Application.DDoS_Test" />
+      <item itemvalue="Application.Datenbank" />
+      <item itemvalue="Application.Test" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Datenbank" />
+        <item itemvalue="Application.Test" />
+        <item itemvalue="Application.DDoS_Test" />
+        <item itemvalue="Application.ClientMain" />
+        <item itemvalue="Application.Datenbank" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b227baea-bc7b-4868-a8e2-5f5fd2e268f4" name="Default Changelist" comment="" />
+      <created>1624369059636</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1624369059636</updated>
+    </task>
+    <task id="LOCAL-00001" summary="modified gitignor">
+      <created>1624984076479</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1624984076479</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="modified gitignor" />
+    <option name="LAST_COMMIT_MESSAGE" value="modified gitignor" />
+  </component>
+</project>

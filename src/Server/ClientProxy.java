@@ -1,7 +1,6 @@
 package Server;
 
 import Gemeinsam.*;
-
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -11,6 +10,8 @@ public class ClientProxy extends Proxy
     private Controller c;
     private String gruppenraumname;
     private Gruppenraum gruppenraum;
+    private Ratelimiter ratelimiter;
+    private int anzahltimeout;
     static ArrayList<Datei> daten = new ArrayList<>();
 
     public String getGruppenraumname()
@@ -28,6 +29,8 @@ public class ClientProxy extends Proxy
         this.c = c;
         this.gruppenraum = c.defaultgruppenraum;
         this.gruppenraumname = c.defaultgruppenraum.getGruppenname();
+        ratelimiter = new Ratelimiter();
+
     }
 
     /* Funktioniert nicht mehr
@@ -81,6 +84,46 @@ public class ClientProxy extends Proxy
             //return false;
         }
     }
+
+    @Override
+    public void run() {
+        try
+        {
+            while (true)
+            {
+                ratelimiter.berechneRate();
+                if (ratelimiter.getCount() > 0)
+                {
+                    objektempfangen();
+                }
+                else
+                {
+                    if (anzahltimeout < 3)
+                    {
+                        System.out.println("ratelimit überschritten");
+                        anzahltimeout++;
+                        Thread.sleep(10000);
+                    }
+                    else
+                    {
+                        if (getBenutzer()!= null)
+                        {
+                            c.getDatenbank().bannUser(getBenutzer().getBenutzername());
+                        }
+                        getClient().close();
+                        return;
+                    }
+                }
+
+
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println("Fehler in Proxy run" + e.getMessage());
+        }
+    }
+
 
     @Override
     public void textNachrichtVerwalten(Text t)

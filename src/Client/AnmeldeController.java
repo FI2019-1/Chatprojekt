@@ -28,6 +28,10 @@ public class AnmeldeController implements Initializable
 
     private ClientProxy cp;
 
+    public ClientProxy getCp() {
+        return cp;
+    }
+
     public void anmelden(ActionEvent actionEvent) throws IOException {
         if(textBenutzername.getText() != null && pwTextPasswort.getText() != null)
         {
