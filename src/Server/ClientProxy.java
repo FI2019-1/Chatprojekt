@@ -99,11 +99,11 @@ public class ClientProxy implements Runnable {
                 ratelimiter.berechneRate();
                 if (ratelimiter.getCount() > 0)
                 {
-                    if (benutzer == null)
+                    if (getUsername() == null)
                     {
                         //erst anmelden
                     }
-                    if (benutzer != null)
+                    else
                     {
                         beginnen(s);
                     }
@@ -118,9 +118,9 @@ public class ClientProxy implements Runnable {
                     }
                     else
                     {
-                        if (benutzer != null)
+                        if (getUsername()!= null)
                         {
-                            datenbank.bannUser(benutzer.getBenutzername());
+                            c.getDatenbank().bannUser(getUsername());
                         }
                         reader.close();
                         writer.flush();
