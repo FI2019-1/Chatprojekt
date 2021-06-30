@@ -1,17 +1,27 @@
 package Client;
 
 import Gemeinsam.Text;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -120,7 +130,6 @@ public class ClientController implements Initializable
         nachrichten.setText("");
     }
 
-
     public void schickeNamen(String username)
     {
         cp.schreiben(";" + username);
@@ -216,7 +225,6 @@ public class ClientController implements Initializable
         return cp;
     }
 
-
     public void setCp(ClientProxy cp) {
         this.cp = cp;
         cp.setC(this);
@@ -243,6 +251,12 @@ public class ClientController implements Initializable
     {
         Text t = new Text(nachrichten.getText(), cp.getBenutzer());
         cp.senden(t);
+
+        nachrichten.clear();
     }
 
+    public void exitApplication()
+    {
+        Platform.exit();
+    }
 }

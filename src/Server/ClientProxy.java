@@ -84,7 +84,7 @@ public class ClientProxy extends Proxy
             //return false;
         }
     }
-
+/*
     @Override
     public void run() {
         try
@@ -122,7 +122,7 @@ public class ClientProxy extends Proxy
         {
             System.out.println("Fehler in Proxy run" + e.getMessage());
         }
-    }
+    }*/
 
 
     @Override

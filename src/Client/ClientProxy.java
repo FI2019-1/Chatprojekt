@@ -8,7 +8,6 @@ import java.net.Socket;
 
 public class ClientProxy extends Proxy
 {
-
     private AnmeldeController anmeldeController;
     private ClientController c;
 
@@ -17,14 +16,15 @@ public class ClientProxy extends Proxy
         super.setBenutzer(benutzer);
     }*/
 
+    public ClientController getC() {
+        return c;
+    }
+
     public void setC(ClientController c) {
         this.c = c;
     }
     public Benutzer getBenutzer() {
         return super.getBenutzer();
-    }
-    public ClientController getC() {
-        return c;
     }
 
     public ClientProxy(Socket client, AnmeldeController anmeldeController)
@@ -33,8 +33,7 @@ public class ClientProxy extends Proxy
         this.anmeldeController = anmeldeController;
         this.c = c;
     }
-
-                /*
+/*
 
                 Bitte aufräumen (run):
                 System.out.println(s);
@@ -69,6 +68,4 @@ public class ClientProxy extends Proxy
             }
         });
     }
-
-
 }

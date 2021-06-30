@@ -2,30 +2,46 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.ClientController">
-   <columnConstraints>
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-   </rowConstraints>
+<Pane fx:id="paneBack" prefHeight="631.0" prefWidth="714.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.ClientController">
    <children>
-      <Pane prefHeight="649.0" prefWidth="716.0">
-         <children>
-            <TextArea fx:id="textWindow" layoutX="14.0" layoutY="124.0" prefHeight="428.0" prefWidth="679.0" />
-            <TextField fx:id="nachrichten" layoutX="14.0" layoutY="591.0" onAction="#sendenEvent" prefHeight="25.0" prefWidth="541.0" />
-            <TextField fx:id="name" layoutX="101.0" layoutY="33.0" />
-            <Label layoutX="24.0" layoutY="37.0" text="Username:" />
-            <Label fx:id="labelGruppenraum" layoutX="271.0" layoutY="37.0" prefHeight="17.0" prefWidth="96.0" text="Gruppenraum:" />
-            <TextField fx:id="textFieldGruppenraum" layoutX="363.0" layoutY="33.0" prefHeight="25.0" prefWidth="149.0" />
-            <Label layoutX="271.0" layoutY="78.0" text="Passwort:" />
-            <Label layoutX="24.0" layoutY="78.0" />
-            <Label fx:id="labelMessage" layoutX="22.0" layoutY="78.0" text="-" />
-            <PasswordField fx:id="passwordFieldGruppe" layoutX="363.0" layoutY="75.0" />
-            <Button fx:id="senden" layoutX="628.0" layoutY="591.0" mnemonicParsing="false" onAction="#sendenEvent" prefHeight="25.0" prefWidth="87.0" text="DateiSenden" />
-            <Button fx:id="oeffnen" layoutX="561.0" layoutY="591.0" mnemonicParsing="false" onAction="#openFilechooser" text="Öffnen" />
-         </children>
-      </Pane>
+      <TextField fx:id="nachrichten" editable="true" layoutX="18.0" layoutY="578.0" onAction="#sendenEvent" prefHeight="30.0" prefWidth="472.0" promptText="Enter zum Versenden">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Label fx:id="labelGruppenraum" layoutX="18.0" layoutY="34.0" prefHeight="25.0" prefWidth="111.0" text="Gruppenraum">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="textFieldGruppenraum" layoutX="135.0" layoutY="34.0" prefHeight="30.0" prefWidth="175.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Label fx:id="labelPasswort" layoutX="18.0" layoutY="75.0" text="Passwort">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="24.0" layoutY="78.0" />
+      <PasswordField fx:id="passwordFieldGruppe" layoutX="135.0" layoutY="75.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </PasswordField>
+      <Button fx:id="senden" layoutX="504.0" layoutY="578.0" mnemonicParsing="false" onAction="#sendenEvent" prefHeight="30.0" prefWidth="93.0" text="Datei senden" />
+      <Button fx:id="oeffnen" layoutX="604.0" layoutY="578.0" mnemonicParsing="false" onAction="#openFilechooser" prefHeight="30.0" prefWidth="93.0" text="Öffnen" />
+      <TextArea fx:id="textWindow" editable="false" layoutX="18.0" layoutY="125.0" prefHeight="428.0" prefWidth="679.0">
+         <font>
+            <Font size="16.0" />
+         </font></TextArea>
+      <Button fx:id="buttonClose" layoutX="675.0" mnemonicParsing="false" onAction="#exitApplication" prefHeight="17.0" prefWidth="39.0" text="x">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
    </children>
-</GridPane>
+</Pane>

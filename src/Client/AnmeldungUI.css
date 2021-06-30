@@ -1,0 +1,49 @@
+#paneBack
+{
+    -fx-background-color: #414141;
+}
+
+.label
+{
+    -fx-text-fill: #d7d7d7;
+}
+
+.text-field
+{
+    -fx-background-color: #696969;
+    -fx-text-fill: #d7d7d7;
+}
+
+.text-field:focused
+{
+    -fx-border-color: #00ee32;
+    -fx-border-radius: 3;
+}
+
+.button
+{
+    -fx-background-color: #00ee32;
+}
+
+.button:hover
+{
+    -fx-cursor: hand;
+    -fx-background-color: #24ff54;
+}
+
+#labelRegistrieren:hover
+{
+    -fx-cursor: hand;
+    -fx-text-fill: #00ee32;
+}
+
+#buttonClose
+{
+    -fx-background-color: transparent;
+    -fx-text-fill: #949494;
+}
+
+#buttonClose:hover
+{
+    -fx-text-fill: #00ee32;
+}
