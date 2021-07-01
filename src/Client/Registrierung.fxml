@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane fx:id="paneBack" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="483.0" prefWidth="375.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.AnmeldeController">
+   <children>
+      <Label fx:id="labelRegistrierung" layoutX="85.0" layoutY="27.0" text="Registrierung">
+         <font>
+            <Font name="System Bold" size="32.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelBenutzername" layoutX="49.0" layoutY="109.0" text="Benutzername">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="textBenutzername" layoutX="49.0" layoutY="139.0" prefHeight="37.0" prefWidth="274.0">
+         <font>
+            <Font size="14.0" />
+         </font></TextField>
+      <Label fx:id="labelPasswort" layoutX="49.0" layoutY="189.0" text="Passwort">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="pwTextPasswort" layoutX="49.0" layoutY="219.0" prefHeight="37.0" prefWidth="274.0">
+         <font>
+            <Font size="14.0" />
+         </font></PasswordField>
+      <PasswordField fx:id="pwTextPasswortWiederholen" layoutX="50.0" layoutY="299.0" prefHeight="37.0" prefWidth="274.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </PasswordField>
+      <Button fx:id="buttonRegistrieren" layoutX="49.0" layoutY="371.0" mnemonicParsing="false" onAction="#registrieren" prefHeight="35.0" prefWidth="274.0" text="registrieren">
+         <font>
+            <Font size="16.0" />
+         </font></Button>
+      <Button fx:id="buttonClose" layoutX="336.0" mnemonicParsing="false" onAction="#exitApplication" prefHeight="17.0" prefWidth="39.0" text="x" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Label fx:id="labelPasswortWIederholen" layoutX="50.0" layoutY="269.0" text="Passwort wiederholen">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelRegistrieren" layoutX="50.0" layoutY="414.0" onMouseClicked="#openSignIn" text="Bereits registriert?">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>
