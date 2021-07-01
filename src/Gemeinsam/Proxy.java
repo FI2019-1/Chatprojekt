@@ -47,11 +47,12 @@ public abstract class Proxy implements Runnable
         }
     }
 
-    protected void objektempfangen()
+    private void objektempfangen()
     {
         try
         {
             Nachricht n = serializer.deserialisierung();
+            System.out.println(n.getClass());
             filter(n);
         }
         catch(Exception e)
@@ -70,6 +71,11 @@ public abstract class Proxy implements Runnable
         {
             benutzerdatenverwalten((BenutzerAnmeldeDaten) n);
         }
+        else if(n.getType() == new BenutzerRegisterDaten().getType())
+        {
+            registerdatenVerwalten((BenutzerRegisterDaten) n);
+
+        }
         else
         {
             System.out.println(n.getType());
@@ -77,6 +83,7 @@ public abstract class Proxy implements Runnable
     }
 
     public abstract void textNachrichtVerwalten(Text t);
+    public abstract void registerdatenVerwalten(BenutzerRegisterDaten t);
     public abstract void benutzerdatenverwalten(BenutzerAnmeldeDaten n);
 
     public void senden(Nachricht n)

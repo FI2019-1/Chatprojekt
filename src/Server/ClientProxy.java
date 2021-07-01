@@ -84,6 +84,17 @@ public class ClientProxy extends Proxy
             //return false;
         }
     }
+    public void registerdatenVerwalten(BenutzerRegisterDaten t)
+    {
+        try
+        {
+            c.getDatenbank().userregister(t.getBenutzername(), t.getPasswort());
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
 /*
     @Override
     public void run() {

@@ -1,14 +1,12 @@
 package Client;
 
+import Gemeinsam.BenutzerRegisterDaten;
 import javafx.application.Platform;
 import Gemeinsam.Benutzer;
 import Gemeinsam.BenutzerAnmeldeDaten;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,7 +14,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -30,6 +27,7 @@ public class AnmeldeController implements Initializable, WindowProperty
     public Button buttonAnmelden;
     public PasswordField pwTextPasswort;
     public Label labelRegistrieren;
+    public PasswordField pwTextPasswortWiederholen;
     private ClientProxy cp;
 
     public ClientProxy getCp() {
@@ -37,7 +35,7 @@ public class AnmeldeController implements Initializable, WindowProperty
     }
 
     public void anmelden(ActionEvent actionEvent) throws IOException {
-        if(textBenutzername.getText() != null && pwTextPasswort.getText() != null)
+        if(!textBenutzername.getText().isEmpty() && !pwTextPasswort.getText().isEmpty())
         {
             System.out.println(pwTextPasswort.getText().hashCode());
             cp.senden(new BenutzerAnmeldeDaten(textBenutzername.getText(), pwTextPasswort.getText().hashCode()));
@@ -65,6 +63,16 @@ public class AnmeldeController implements Initializable, WindowProperty
         }
 
     }
+    public void openSignUp(MouseEvent mouseEvent) throws IOException
+    {
+        Parent rootSignUp = FXMLLoader.load(getClass().getResource("Registrierung.fxml"));
+
+        Stage primaryStage = (Stage)labelRegistrieren.getScene().getWindow();
+        Scene sceneSignUp = new Scene(rootSignUp, 375, 483);
+        sceneSignUp.getStylesheets().add((getClass().getResource("RegistrierungUI.css").toExternalForm()));
+        primaryStage.setScene(sceneSignUp);
+        DragDrop(rootSignUp, primaryStage);
+    }
     public void starteClient()
     {
         try
@@ -84,20 +92,16 @@ public class AnmeldeController implements Initializable, WindowProperty
         Platform.exit();
     }
 
-    public void openSignUp(MouseEvent mouseEvent) throws IOException
+
+
+    public void registrieren(ActionEvent mouseEvent)
     {
-        Parent rootSignUp = FXMLLoader.load(getClass().getResource("Registrierung.fxml"));
+        if(textBenutzername.getText() != null && pwTextPasswort.getText() != null)
+        {
+            System.out.println(pwTextPasswort.getText().hashCode());
+            cp.senden(new BenutzerRegisterDaten(textBenutzername.getText(), pwTextPasswort.getText().hashCode()));
 
-        Stage primaryStage = (Stage)labelRegistrieren.getScene().getWindow();
-        Scene sceneSignUp = new Scene(rootSignUp, 375, 483);
-        sceneSignUp.getStylesheets().add((getClass().getResource("RegistrierungUI.css").toExternalForm()));
-        primaryStage.setScene(sceneSignUp);
-        DragDrop(rootSignUp, primaryStage);
-    }
-
-    public void registrieren(MouseEvent mouseEvent)
-    {
-
+        }
     }
 
     public void openSignIn(MouseEvent mouseEvent) throws IOException

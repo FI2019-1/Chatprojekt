@@ -55,6 +55,11 @@ public class ClientProxy extends Proxy
         c.textWindow.appendText(super.getBenutzer().getBenutzername() +": " + t.getText() + "\n");
     }
 
+    @Override
+    public void registerdatenVerwalten(BenutzerRegisterDaten t) {
+
+    }
+
     public void benutzerdatenverwalten(BenutzerAnmeldeDaten anmeldeDaten)
     {
         Platform.runLater(() -> {
