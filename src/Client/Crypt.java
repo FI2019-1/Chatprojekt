@@ -11,6 +11,23 @@ public class Crypt
     private static final String TEXT = "Hallo dies ist ein Test!!!";
 
     PublicKey pubKey;
+
+    public PublicKey getPubKey() {
+        return pubKey;
+    }
+
+    public void setPubKey(PublicKey pubKey) {
+        this.pubKey = pubKey;
+    }
+
+    public PrivateKey getPrivKey() {
+        return privKey;
+    }
+
+    public void setPrivKey(PrivateKey privKey) {
+        this.privKey = privKey;
+    }
+
     PrivateKey privKey;
 
     public byte[] encrypt (PublicKey key, byte[] plain) throws  Exception
@@ -75,14 +92,6 @@ public class Crypt
 
 
     }
-
-    public PublicKey getPublicKey()
-    {
-        return pubKey;
-    }
-
-    public PrivateKey getPrivateKey()
-    {
-        return privKey;
-    }
 }
+
+
