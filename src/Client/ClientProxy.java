@@ -104,13 +104,14 @@ public class ClientProxy implements Runnable
             String empfkey;
             String sendkey;
             PublicKey pubK;
+            PrivateKey privK; //new
 
             empfkey = reader.readLine();// lesen vom Socket
             byte[] bytearray = empfkey.getBytes();
 
             publicKeySersver = KeyFactory.getInstance("RSA").generatePublic(new X509EncodedKeySpec(bytearray)); //> abspeichern public key vom server
 
-            pubK = crypt.getPublicKey();//senden eigener public key
+            pubK = crypt.getPubKey();//senden eigener public key
             byte[] bytearray2 = pubK.getEncoded();
             sendkey = Arrays.toString(bytearray2);
             writer.write(sendkey + "\n");
