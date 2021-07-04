@@ -9,6 +9,7 @@ import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyFactory;
+import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Arrays;
@@ -24,6 +25,8 @@ public class ClientProxy implements Runnable
 
     Crypt crypt = new Crypt();
     PublicKey publilcKeyClient;
+    PublicKey pubK;
+    PrivateKey privK;
 
     public ClientProxy(Socket client, Controller c) //Socket geändert
     {
@@ -51,6 +54,7 @@ public class ClientProxy implements Runnable
         {
             String s = null;
             while ((s = streamIn.readUTF()) !=null)
+                s = crypt.decrypt(privK, s.getBytes()).toString();
                 c.MessageAll(s);
 
             //writer.close();
@@ -85,9 +89,12 @@ public class ClientProxy implements Runnable
             String empfkey;
             String sendkey;
             PublicKey pubK;
+            PrivateKey privK;
 
-            pubK = crypt.getPublicKey();//senden eigener public key
-            byte[] bytearray2 = pubK.getEncoded();
+            privK = crypt.getPrivKey();
+            pubK = crypt.getPubKey();//senden eigener public key
+            System.out.println(privK);
+            byte[] bytearray2 = pubK.getEncoded(); //new
             sendkey = Arrays.toString(bytearray2);
             writer.write(sendkey + "\n");
             writer.flush();
