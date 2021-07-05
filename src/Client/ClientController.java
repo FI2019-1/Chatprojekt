@@ -1,19 +1,19 @@
 package Client;
 
+import Gemeinsam.ChatFile;
 import Gemeinsam.Text;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -28,14 +28,15 @@ import java.util.ResourceBundle;
 
 public class ClientController implements Initializable
 {
+    public javafx.scene.control.ScrollPane ScrollPane;
+    @FXML
+    TextFlow textArea;
     @FXML
     TextField nachrichten;
     @FXML
     TextField name;
     @FXML
     TextField textFieldGruppenraum;
-    @FXML
-    TextArea textWindow;
     @FXML
     PasswordField passwordFieldGruppe;
     @FXML
@@ -52,7 +53,8 @@ public class ClientController implements Initializable
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
         gruppenraum = new Gruppenraum();
-
+        ScrollPane.setHbarPolicy(javafx.scene.control.ScrollPane.ScrollBarPolicy.NEVER);
+        ScrollPane.setVbarPolicy(javafx.scene.control.ScrollPane.ScrollBarPolicy.NEVER);
 
         //TextFieldsWithEnter();
         //textFieldGruppenraum.setEditable(false);
@@ -244,6 +246,10 @@ public class ClientController implements Initializable
         System.out.println(file[0]);
     }
 
+    public void fileSenden()
+    {
+        cp.senden(new ChatFile(file[0], cp.getBenutzer()));
+    }
 
 
 
@@ -259,4 +265,5 @@ public class ClientController implements Initializable
     {
         Platform.exit();
     }
+
 }

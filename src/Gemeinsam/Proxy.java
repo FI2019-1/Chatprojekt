@@ -76,6 +76,12 @@ public abstract class Proxy implements Runnable
             registerdatenVerwalten((BenutzerRegisterDaten) n);
 
         }
+        else if (n.getType() == new Gemeinsam.ChatFile().getType())
+        {
+            System.out.println("ich bin eine File :D");
+            ChatFile chatFile = (ChatFile)n;
+            chatFileVerwalten(chatFile);
+        }
         else
         {
             System.out.println(n.getType());
@@ -83,6 +89,7 @@ public abstract class Proxy implements Runnable
     }
 
     public abstract void textNachrichtVerwalten(Text t);
+    public abstract void chatFileVerwalten(ChatFile t);
     public abstract void registerdatenVerwalten(BenutzerRegisterDaten t);
     public abstract void benutzerdatenverwalten(BenutzerAnmeldeDaten n);
 
