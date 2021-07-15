@@ -250,6 +250,8 @@ public class ClientController implements Initializable
     public void sendenEvent(ActionEvent actionEvent)
     {
         Text t = new Text(nachrichten.getText(), cp.getBenutzer());
+        System.out.println(t.getText());
+        System.out.println(t.getUser());
         cp.senden(t);
 
         nachrichten.clear();

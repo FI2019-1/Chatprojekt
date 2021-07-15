@@ -30,7 +30,6 @@ public class ClientProxy extends Proxy
         this.gruppenraum = c.defaultgruppenraum;
         this.gruppenraumname = c.defaultgruppenraum.getGruppenname();
         ratelimiter = new Ratelimiter();
-
     }
 
     /* Funktioniert nicht mehr
@@ -84,6 +83,13 @@ public class ClientProxy extends Proxy
             //return false;
         }
     }
+
+    @Override
+    public void confirmEmpfangen(Confirm confirm) {
+        System.out.println("Confirm wurde gesendet");
+        c.sendenAnAlle(confirm);
+    }
+
     public void registerdatenVerwalten(BenutzerRegisterDaten t)
     {
         try
@@ -139,6 +145,7 @@ public class ClientProxy extends Proxy
     @Override
     public void textNachrichtVerwalten(Text t)
     {
+        t.setGesendetAn(gruppenraum.getClientList().size() - 1);
         c.sendenAnAlle(t);
     }
 
