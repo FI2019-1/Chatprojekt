@@ -2,6 +2,8 @@ package Client;
 
 import Gemeinsam.*;
 import javafx.application.Platform;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 import java.io.*;
 import java.net.Socket;
@@ -55,7 +57,24 @@ public class ClientProxy extends Proxy
 
     public void textNachrichtVerwalten(Text t)
     {
-        c.textWindow.appendText(super.getBenutzer().getBenutzername() +": " + t.getText() + "\n");
+        Platform.runLater(() ->
+        {
+            javafx.scene.text.Text text = new javafx.scene.text.Text(super.getBenutzer().getBenutzername() +": " + t.getText() + "\n");
+            text.setId("hash");
+            text.getStyleClass().add("text");
+            text.setOnMouseClicked(e ->
+            {
+                System.out.println("e.getSource()");
+                c.textArea.setOnMouseClicked(ev -> {
+                    if(ev.getTarget() instanceof javafx.scene.text.Text) {
+                        javafx.scene.text.Text clicked = (javafx.scene.text.Text) ev.getTarget();
+                        System.out.println(clicked);
+                    }
+                });
+            });
+
+            c.textArea.getChildren().add(text);
+        });
         nachrichtenListe.add(t);
         Confirm conf = new Confirm(super.getBenutzer(), t.getHashCode());
         senden(conf);
@@ -63,6 +82,27 @@ public class ClientProxy extends Proxy
     }
 
     @Override
+    public void chatFileVerwalten(ChatFile t) {
+        Platform.runLater(() ->
+        {
+            javafx.scene.text.Text text = new javafx.scene.text.Text(super.getBenutzer().getBenutzername() +": " + t.toString() + "\n");
+            text.setId("hash");
+            text.getStyleClass().add("text");
+            text.setOnMouseClicked(e ->
+            {
+                System.out.println("e.getSource()");
+                c.textArea.setOnMouseClicked(ev -> {
+                    if(ev.getTarget() instanceof javafx.scene.text.Text) {
+                        javafx.scene.text.Text clicked = (javafx.scene.text.Text) ev.getTarget();
+                        System.out.println(clicked);
+                    }
+                });
+            });
+            c.textArea.getChildren().add(text);
+        });
+
+
+        @Override
     public void registerdatenVerwalten(BenutzerRegisterDaten t) {
 
     }

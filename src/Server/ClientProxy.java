@@ -149,6 +149,12 @@ public class ClientProxy extends Proxy
         c.sendenAnAlle(t);
     }
 
+    @Override
+    public void chatFileVerwalten(ChatFile t)
+    {
+        c.sendenAnAlle(t);
+    }
+
 
 
 /* Irrelevant ---> Umschreiben

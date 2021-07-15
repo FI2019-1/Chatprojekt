@@ -32,12 +32,15 @@
             <Font size="14.0" />
          </font>
       </PasswordField>
-      <Button fx:id="senden" layoutX="504.0" layoutY="578.0" mnemonicParsing="false" onAction="#sendenEvent" prefHeight="30.0" prefWidth="93.0" text="Datei senden" />
+      <Button fx:id="senden" layoutX="504.0" layoutY="578.0" mnemonicParsing="false" onAction="#fileSenden" prefHeight="30.0" prefWidth="93.0" text="Datei senden" />
       <Button fx:id="oeffnen" layoutX="604.0" layoutY="578.0" mnemonicParsing="false" onAction="#openFilechooser" prefHeight="30.0" prefWidth="93.0" text="Öffnen" />
-      <TextArea fx:id="textWindow" editable="false" layoutX="18.0" layoutY="125.0" prefHeight="428.0" prefWidth="679.0">
-         <font>
-            <Font size="16.0" />
-         </font></TextArea>
+      <ScrollPane fx:id="ScrollPane" layoutX="18.0" layoutY="125.0" prefHeight="428.0" prefWidth="679.0">
+         <content>
+            <TextFlow fx:id="textArea" layoutX="18.0" layoutY="125.0"  prefHeight="428.0" prefWidth="679.0"/>
+         </content>
+      </ScrollPane>
+
+
       <Button fx:id="buttonClose" layoutX="675.0" mnemonicParsing="false" onAction="#exitApplication" prefHeight="17.0" prefWidth="39.0" text="x">
          <font>
             <Font size="18.0" />

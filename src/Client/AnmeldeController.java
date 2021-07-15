@@ -41,6 +41,7 @@ public class AnmeldeController implements Initializable, WindowProperty
             cp.senden(new BenutzerAnmeldeDaten(textBenutzername.getText(), pwTextPasswort.getText().hashCode()));
 
         }
+
     }
     public void bestaetigung(BenutzerAnmeldeDaten anmeldeDaten) throws IOException {
         System.out.println("test");

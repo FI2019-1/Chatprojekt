@@ -20,22 +20,33 @@
     -fx-border-radius: 3;
 }
 
-.text-area .content
+#textArea
 {
     -fx-background-color: #696969;
 }
 
-.text-area:focused
+
+#textArea .content
+{
+    -fx-background-color: #696969;
+}
+
+#ScrollPane:focused
+{
+    -fx-border-color: #00ee32;
+    -fx-border-radius: 3;
+}
+#textArea:focused
 {
     -fx-border-color: #00ee32;
     -fx-border-radius: 3;
 }
 
-.text-area
+.text
 {
-    -fx-text-fill: #d7d7d7;
+    -fx-fill: #d7d7d7;
+    -fx-font-size: 16;
 }
-
 .button
 {
     -fx-background-color: #00ee32;
