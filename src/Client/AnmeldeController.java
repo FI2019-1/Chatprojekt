@@ -44,7 +44,7 @@ public class AnmeldeController implements Initializable, WindowProperty
 
     }
     public void bestaetigung(BenutzerAnmeldeDaten anmeldeDaten) throws IOException {
-        System.out.println("test");
+        //System.out.println("test");
         if(anmeldeDaten.getBestaetigung() == true)
         {
 
@@ -62,17 +62,38 @@ public class AnmeldeController implements Initializable, WindowProperty
 
             DragDrop(rootChat, primaryStage);
         }
+        else
+        {
+            pwTextPasswort.setStyle("-fx-border-color: red");
+        }
 
     }
     public void openSignUp(MouseEvent mouseEvent) throws IOException
     {
-        Parent rootSignUp = FXMLLoader.load(getClass().getResource("Registrierung.fxml"));
-
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Registrierung.fxml"));
         Stage primaryStage = (Stage)labelRegistrieren.getScene().getWindow();
+
+        RegistController registController = new RegistController();
+        registController.setCp(cp);
+        loader.setController(registController);
+
+        Parent rootSignUp = (Parent) loader.load();
         Scene sceneSignUp = new Scene(rootSignUp, 375, 483);
         sceneSignUp.getStylesheets().add((getClass().getResource("RegistrierungUI.css").toExternalForm()));
         primaryStage.setScene(sceneSignUp);
         DragDrop(rootSignUp, primaryStage);
+    }
+
+    public void openSignIn(MouseEvent mouseEvent) throws IOException
+    {
+        Parent rootSignIn = FXMLLoader.load(getClass().getResource("Anmeldung.fxml"));
+
+        Stage primaryStage = (Stage)labelRegistrieren.getScene().getWindow();
+        Scene sceneSignIn = new Scene(rootSignIn, 375, 403);
+        sceneSignIn.getStylesheets().add((getClass().getResource("AnmeldungUI.css").toExternalForm()));
+        primaryStage.setScene(sceneSignIn);
+
+        DragDrop(rootSignIn, primaryStage);
     }
     public void starteClient()
     {
@@ -95,30 +116,26 @@ public class AnmeldeController implements Initializable, WindowProperty
 
 
 
-    public void registrieren(ActionEvent mouseEvent)
-    {
-        if(textBenutzername.getText() != null && pwTextPasswort.getText() != null)
-        {
-            System.out.println(pwTextPasswort.getText().hashCode());
-            cp.senden(new BenutzerRegisterDaten(textBenutzername.getText(), pwTextPasswort.getText().hashCode()));
 
-        }
-    }
 
-    public void openSignIn(MouseEvent mouseEvent) throws IOException
-    {
-        Parent rootSignIn = FXMLLoader.load(getClass().getResource("Anmeldung.fxml"));
 
-        Stage primaryStage = (Stage)labelRegistrieren.getScene().getWindow();
-        Scene sceneSignIn = new Scene(rootSignIn, 375, 403);
-        sceneSignIn.getStylesheets().add((getClass().getResource("AnmeldungUI.css").toExternalForm()));
-        primaryStage.setScene(sceneSignIn);
-
-        DragDrop(rootSignIn, primaryStage);
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         starteClient();
+    }
+
+    public void registerbestaetigung(BenutzerRegisterDaten t) throws IOException {
+        System.out.println("test");
+        if(t.getBestaetigung() == true)
+        {
+            bestaetigung(new BenutzerAnmeldeDaten(t.getBenutzername(), t.getPasswort(),t.getBestaetigung()));
+        }
+        else
+        {
+            pwTextPasswort.setStyle("-fx-border-color: red");
+            pwTextPasswortWiederholen.setStyle("-fx-border-color: red");
+        }
+
     }
 }

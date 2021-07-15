@@ -95,6 +95,7 @@ public class ClientProxy extends Proxy
         try
         {
             c.getDatenbank().userregister(t.getBenutzername(), t.getPasswort());
+            super.senden(t);
         }
         catch(Exception e)
         {

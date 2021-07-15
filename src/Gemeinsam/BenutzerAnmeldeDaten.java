@@ -26,6 +26,12 @@ public class BenutzerAnmeldeDaten extends Nachricht {
         this.passwort = passwort;
         this.benutzername = benutzername;
     }
+    public BenutzerAnmeldeDaten(String benutzername, int passwort, boolean bestaetigung)
+    {
+        this.bestaetigung = bestaetigung;
+        this.passwort = passwort;
+        this.benutzername = benutzername;
+    }
 
     public String getBenutzername() {
         return benutzername;

@@ -60,7 +60,7 @@ public class ClientProxy extends Proxy
         Platform.runLater(() ->
         {
             javafx.scene.text.Text text = new javafx.scene.text.Text(super.getBenutzer().getBenutzername() +": " + t.getText() + "\n");
-            text.setId("hash");
+            text.setId(String.valueOf(t.getHashCode()));
             text.getStyleClass().add("text");
             text.setOnMouseClicked(e ->
             {
@@ -86,7 +86,7 @@ public class ClientProxy extends Proxy
         Platform.runLater(() ->
         {
             javafx.scene.text.Text text = new javafx.scene.text.Text(super.getBenutzer().getBenutzername() +": " + t.toString() + "\n");
-            text.setId("hash");
+            text.setId(String.valueOf(t.getHashCode()));
             text.getStyleClass().add("text");
             text.setOnMouseClicked(e ->
             {
@@ -94,6 +94,7 @@ public class ClientProxy extends Proxy
                 c.textArea.setOnMouseClicked(ev -> {
                     if(ev.getTarget() instanceof javafx.scene.text.Text) {
                         javafx.scene.text.Text clicked = (javafx.scene.text.Text) ev.getTarget();
+                        clicked.setText(clicked.getText() + "clicked");
                         System.out.println(clicked);
                     }
                 });
@@ -101,10 +102,20 @@ public class ClientProxy extends Proxy
             c.textArea.getChildren().add(text);
         });
 
+    }
 
         @Override
     public void registerdatenVerwalten(BenutzerRegisterDaten t) {
-
+        Platform.runLater(() -> {
+            try
+            {
+                anmeldeController.registerbestaetigung(t);
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        });
     }
 
     public void benutzerdatenverwalten(BenutzerAnmeldeDaten anmeldeDaten)
